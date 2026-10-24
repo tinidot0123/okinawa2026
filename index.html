@@ -202,6 +202,20 @@ details.exp[open] summary::after{content:"－"}
 .btn{cursor:pointer;border:var(--line);border-radius:999px;background:var(--paper);padding:3px 18px;font-size:14px;box-shadow:3px 3px 0 var(--ink)}
 .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
 
+/* pre-trip expenses */
+details.pre{margin-bottom:10px}
+.prerow{border:3px solid var(--ink);border-radius:16px;padding:8px;display:grid;gap:6px;background:var(--paper)}
+.pr1{display:flex;gap:6px;align-items:center}
+.pr2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.pr2 input[type=date]{grid-column:1/-1}
+.prerow input,.prerow select{border:3px solid var(--ink);border-radius:14px;background:var(--paper);padding:3px 10px;font-size:15px;min-width:0;width:100%}
+.prerow select{padding:3px 6px}
+.pdel{flex:none;width:34px;height:34px;border:3px solid var(--ink);border-radius:50%;background:var(--coral-l);cursor:pointer;font-size:14px;line-height:1;padding:0}
+.pdel:active{transform:translateY(2px)}
+.btn.small{font-size:13px;padding:1px 14px;justify-self:start}
+.empty{font-size:13px;opacity:.8}
+.pre .expbody{background:var(--paper)}
+
 footer{padding:28px 16px 40px;text-align:center;font-size:13px}
 footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
 
@@ -335,11 +349,11 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
         <div class="t-top"><span class="airline">TIGERAIR TAIWAN・台灣虎航</span><span class="fno">IT230</span></div>
         <div class="t-date"><span>去程</span> 11/7 (六)</div>
         <div class="t-route">
-          <div class="t-end"><b class="code">TPE</b><span class="place">台灣桃園</span><em class="tm">06:55</em><small>台灣時間 出發</small></div>
+          <div class="t-end"><b class="code">TPE</b><span class="place">台灣桃園</span><em class="tm">06:35</em><small>台灣時間 出發</small></div>
           <div class="t-mid">
             <svg class="plane-ic" viewBox="0 0 40 40" aria-hidden="true"><g stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M16 17L22 5h6l-4 12z" fill="#F6D27A"/><path d="M16 23l6 12h6l-4-12z" fill="#F6D27A"/><path d="M6 17L3 10h5l5 7z" fill="#F2A497"/><path d="M3 20q0-5 7-5h22q6 0 6 5t-6 5H10q-7 0-7-5z" fill="#FFFCF6"/></g><circle cx="31" cy="20" r="2" fill="#3E3A39"/></svg>
             <span class="dash"></span>
-            <small>飛行約 2 小時</small>
+            <small>飛行約 1 小時 20 分</small>
           </div>
           <div class="t-end r"><b class="code">OKA</b><span class="place">沖繩那霸</span><em class="tm">08:55</em><small>當地時間 抵達</small></div>
         </div>
@@ -532,7 +546,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   function load(){
     try{
       var r = localStorage.getItem(KEY);
-      if(r){ var o = JSON.parse(r); if(o && typeof o==="object"){ ST.rate = (+o.rate>0) ? +o.rate : 4.8; ST.e = (o.e && typeof o.e==="object") ? o.e : {}; } }
+      if(r){ var o = JSON.parse(r); if(o && typeof o==="object"){ ST.rate = (+o.rate>0) ? +o.rate : 4.8; ST.e = (o.e && typeof o.e==="object") ? o.e : {}; ST.pre = (o.pre && typeof o.pre==="object") ? o.pre : null; } }
     }catch(e){}
   }
   function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ST)); }catch(e){} }
@@ -743,23 +757,111 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     });
   }
 
-  function updateSummary(){
-    var body = document.getElementById("money-body");
+  /* ----- pre-trip expenses (editable list per person) ----- */
+  var SEED_J = [
+    {d:"2026-05-22", n:"機票", a:"7033", c:"TWD"},
+    {d:"2026-07-01", n:"vessel住宿兩晚", a:"3782", c:"TWD"},
+    {d:"2026-07-01", n:"那霸皇家公園兩晚", a:"3958", c:"TWD"},
+    {d:"2026-10-20", n:"駕照譯本", a:"100", c:"TWD"},
+    {d:"2026-10-20", n:"卡丁車", a:"2632", c:"TWD"},
+    {d:"2026-10-20", n:"gangala之谷導覽", a:"708", c:"TWD"},
+    {d:"2026-10-20", n:"訂位費", a:"89", c:"TWD"},
+    {d:"2026-10-21", n:"租車費", a:"3509", c:"TWD"},
+    {d:"2026-10-23", n:"機場送機", a:"785", c:"TWD"},
+    {d:"2026-10-23", n:"esim", a:"389", c:"TWD"}
+  ];
+  function ensurePre(){
+    if(!ST.pre){ ST.pre = {y:[], j:SEED_J.map(function(r){ return {d:r.d,n:r.n,a:r.a,c:r.c}; })}; save(); }
+    if(!ST.pre.y) ST.pre.y = [];
+    if(!ST.pre.j) ST.pre.j = [];
+  }
+  function preSum(w){
+    var t=0, j=0;
+    (ST.pre[w]||[]).forEach(function(r){ var n=num(r.a); if(r.c==="TWD") t+=n; else j+=n; });
+    return {t:t, j:j};
+  }
+  function addS(a,b){ return {t:a.t+b.t, j:a.j+b.j}; }
+  function preRowsHtml(w){
+    var rows = ST.pre[w] || [];
+    if(!rows.length) return '<p class="empty">還沒有行前花費，按下面的按鈕新增。</p>';
+    return rows.map(function(r,i){
+      var base = 'data-pw="'+w+'" data-i="'+i+'"';
+      return '<div class="prerow">'
+        + '<div class="pr1"><input type="text" placeholder="項目" aria-label="項目" '+base+' data-f="n" value="'+esc(r.n||"")+'">'
+        + '<button type="button" class="pdel" aria-label="刪除這筆" data-act="del" data-w="'+w+'" data-i="'+i+'">✕</button></div>'
+        + '<div class="pr2">'
+        + '<input type="date" aria-label="日期" '+base+' data-f="d" value="'+esc(r.d||"")+'">'
+        + '<input type="number" inputmode="decimal" min="0" step="any" placeholder="金額" aria-label="金額" '+base+' data-f="a" value="'+esc(r.a||"")+'">'
+        + '<select aria-label="幣別" '+base+' data-f="c"><option value="TWD"'+(r.c==="TWD"?' selected':'')+'>台幣</option><option value="JPY"'+(r.c==="JPY"?' selected':'')+'>日圓</option></select>'
+        + '</div></div>';
+    }).join("");
+  }
+  function renderPre(w){ var el = document.getElementById("pre-"+w); if(el) el.innerHTML = preRowsHtml(w); }
+
+  var moneyBuilt = false;
+  function buildMoney(){
     var h = '';
+    WHO.forEach(function(p){
+      h += '<div class="card person '+p.id+'"><div class="ph"><i></i>'+p.name+'</div>'
+        + '<div class="total"><small>總花費（含行前花費）</small><div class="big" id="tot-'+p.id+'"></div></div>'
+        + '<details class="exp pre" open><summary><span>🧾 行前花費（可編輯）</span><em id="pretot-'+p.id+'"></em></summary>'
+        + '<div class="expbody"><div id="pre-'+p.id+'" style="display:grid;gap:8px"></div>'
+        + '<button type="button" class="btn small" data-act="add" data-w="'+p.id+'">＋ 新增一筆</button></div></details>'
+        + '<div id="days-'+p.id+'"></div></div>';
+    });
+    document.getElementById("money-body").innerHTML = h;
+    WHO.forEach(function(p){ renderPre(p.id); });
+    moneyBuilt = true;
+  }
+  function updateSummary(){
+    ensurePre();
+    if(!moneyBuilt) buildMoney();
     WHO.forEach(function(w){
       var allKeys = [];
       DAYS.forEach(function(d){ allKeys = allKeys.concat(keysOfDay(d)); });
-      var tot = sumKeys(allKeys, w.id), tb = both(tot);
-      h += '<div class="card person '+w.id+'"><div class="ph"><i></i>'+w.name+'</div>';
-      h += '<div class="total"><small>總花費</small><div class="big">NT$ '+fN(tb.twd)+'　／　¥ '+fN(tb.jpy)+'</div></div>';
+      var pre = preSum(w.id);
+      var tb = both(addS(sumKeys(allKeys, w.id), pre));
+      var te = document.getElementById("tot-"+w.id);
+      if(te) te.textContent = 'NT$ '+fN(tb.twd)+'　／　¥ '+fN(tb.jpy);
+      var pe = document.getElementById("pretot-"+w.id);
+      if(pe) pe.textContent = dualLine(pre);
+      var h = '<div class="drow"><span>行前花費</span><span class="amt">'+dualHtml(pre)+'</span></div>';
       DAYS.forEach(function(d){
         var s = sumKeys(keysOfDay(d), w.id);
         h += '<div class="drow"><span>'+d.label+'（'+d.date+'）</span><span class="amt">'+dualHtml(s)+'</span></div>';
       });
-      h += '</div>';
+      var de = document.getElementById("days-"+w.id);
+      if(de) de.innerHTML = h;
     });
-    body.innerHTML = h;
   }
+
+  var mb = document.getElementById("money-body");
+  function onPre(e){
+    var t = e.target;
+    if(!t || !t.getAttribute) return;
+    var w = t.getAttribute("data-pw"); if(!w) return;
+    var r = (ST.pre[w]||[])[+t.getAttribute("data-i")]; if(!r) return;
+    r[t.getAttribute("data-f")] = t.value;
+    save(); updateSummary();
+  }
+  mb.addEventListener("input", onPre);
+  mb.addEventListener("change", onPre);
+  mb.addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest("[data-act]") : null;
+    if(!b) return;
+    var w = b.getAttribute("data-w"), act = b.getAttribute("data-act");
+    if(act==="add"){
+      var n = new Date();
+      var iso = n.getFullYear()+"-"+("0"+(n.getMonth()+1)).slice(-2)+"-"+("0"+n.getDate()).slice(-2);
+      ST.pre[w].push({d:iso, n:"", a:"", c:"TWD"});
+      save(); renderPre(w); updateSummary();
+      var inputs = document.querySelectorAll('#pre-'+w+' input[data-f="n"]');
+      if(inputs.length) inputs[inputs.length-1].focus();
+    }else if(act==="del"){
+      ST.pre[w].splice(+b.getAttribute("data-i"), 1);
+      save(); renderPre(w); updateSummary();
+    }
+  });
 
   function refreshAll(){
     document.querySelectorAll("[data-sum]").forEach(function(el){ el.textContent = itemSum(el.getAttribute("data-sum")); });
@@ -815,8 +917,8 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     if(isFinite(v) && v>0){ ST.rate = v; save(); refreshAll(); }
   });
   document.getElementById("reset").addEventListener("click", function(){
-    if(confirm("確定要清除彥婷和婕瑜所有的花費紀錄嗎？")){
-      ST.e = {}; save(); renderPanel(false); updateSummary();
+    if(confirm("確定要清除彥婷和婕瑜所有的花費紀錄（含行前花費）嗎？")){
+      ST.e = {}; ST.pre = {y:[], j:[]}; save(); renderPanel(false); moneyBuilt = false; updateSummary();
     }
   });
 
