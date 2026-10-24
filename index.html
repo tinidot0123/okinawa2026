@@ -36,6 +36,7 @@ h2.sec .dot{width:18px;height:18px;border:var(--line);border-radius:50%;backgrou
 .nav a.l:nth-of-type(2){background:var(--sky-l)}
 .nav a.l:nth-of-type(3){background:var(--yellow-l)}
 .nav a.l:nth-of-type(4){background:var(--green-l)}
+.nav a.l:nth-of-type(5){background:var(--coral-l)}
 .nav a.l:active{transform:translateY(2px)}
 
 /* hero */
@@ -111,14 +112,22 @@ h2.sec .dot{width:18px;height:18px;border:var(--line);border-radius:50%;backgrou
 /* map */
 .mapcard{padding:0;overflow:hidden;margin-bottom:16px}
 .map-title{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 14px;border-bottom:var(--line);background:var(--yellow-l);font-size:15px}
-.map-title small{font-size:11.5px;opacity:.8}
+.map-title small{font-size:11.5px;opacity:.8;margin-left:auto;text-align:right}
+details.mapcard summary{list-style:none;cursor:pointer}
+details.mapcard summary::-webkit-details-marker{display:none}
+details.mapcard summary::after{content:"＋";font-size:18px;flex:none}
+details.mapcard[open] summary::after{content:"－"}
+details.mapcard:not([open]) .map-title{border-bottom:0}
+.pin-name{cursor:pointer;text-decoration:none}
+.pin-name text{font-family:inherit;text-decoration:underline}
+.pin-name:hover rect{fill:#FCEDC4}
 .mapcard svg.map{display:block;width:100%;height:auto;background:#DCEDF5}
 .pin{cursor:pointer}
 .pin text{font-family:inherit}
 .pin:hover .pin-bg{transform:scale(1.1)}
 .pin-bg{transform-box:fill-box;transform-origin:center;transition:transform .2s}
 .legend{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px 12px;border-top:var(--line);background:var(--paper)}
-.lg{display:inline-flex;align-items:center;gap:6px;border:3px solid var(--ink);border-radius:999px;background:var(--paper);padding:0 10px 0 4px;font-size:12.5px;line-height:1.6;cursor:pointer}
+.lg{text-decoration:none;color:inherit;display:inline-flex;align-items:center;gap:6px;border:3px solid var(--ink);border-radius:999px;background:var(--paper);padding:0 10px 0 4px;font-size:12.5px;line-height:1.6;cursor:pointer}
 .lg b{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 4px;border:3px solid var(--ink);border-radius:999px;font-weight:400;font-size:11.5px;line-height:1;margin:1px 0}
 .lg.c0 b{background:var(--coral)}.lg.c1 b{background:var(--yellow)}.lg.c2 b{background:var(--sky)}.lg.c3 b{background:var(--green)}
 
@@ -216,6 +225,36 @@ details.pre{margin-bottom:10px}
 .empty{font-size:13px;opacity:.8}
 .pre .expbody{background:var(--paper)}
 
+/* luggage */
+.lug-sum{background:var(--yellow-l);margin-bottom:14px}
+.lug-top{display:flex;justify-content:space-between;font-size:15px;margin-bottom:8px}
+.bar{height:20px;border:3px solid var(--ink);border-radius:999px;background:var(--paper);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--green);border-right:3px solid var(--ink);transition:width .35s cubic-bezier(.3,1.5,.5,1)}
+.bar i[style*="width: 0%"],.bar i[style*="width:0%"]{border-right:0}
+.lcat{border:3px solid var(--ink);border-radius:22px;margin-bottom:12px;overflow:hidden;background:var(--paper);box-shadow:3px 3px 0 var(--ink)}
+.lcat summary{list-style:none;cursor:pointer;padding:8px 14px;font-size:16px;display:flex;align-items:center;gap:8px}
+.lcat summary::-webkit-details-marker{display:none}
+.lcat summary em{font-style:normal;font-size:13px;margin-left:auto;background:var(--paper);border:3px solid var(--ink);border-radius:999px;padding:0 10px;line-height:1.5}
+.lcat summary::after{content:"－";font-size:18px}
+.lcat:not([open]) summary::after{content:"＋"}
+.lcat[open] summary{border-bottom:3px solid var(--ink)}
+.lcat.c0 summary{background:var(--coral-l)}.lcat.c1 summary{background:var(--yellow-l)}.lcat.c2 summary{background:var(--sky-l)}.lcat.c3 summary{background:var(--green-l)}
+.lcat .items{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:12px}
+.lcat.done summary em{background:var(--green)}
+.ck{position:relative;display:flex;align-items:center;gap:8px;cursor:pointer;border:3px solid var(--ink);border-radius:14px;padding:4px 8px;background:var(--paper);min-height:44px;line-height:1.35;font-size:14px}
+.ck input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.ck .box{width:24px;height:24px;border:3px solid var(--ink);border-radius:8px;flex:none;display:grid;place-items:center;background:var(--paper);font-size:15px;line-height:1}
+.ck input:checked + .box{background:var(--green);animation:tick .35s cubic-bezier(.3,1.8,.5,1)}
+.ck input:checked + .box::after{content:"✓"}
+.ck input:checked ~ .tx{text-decoration:line-through;opacity:.55}
+.ck:has(input:checked){background:var(--green-l)}
+.lnote{margin:0;padding:8px 14px 0;font-size:13px}
+.ck.star{background:var(--yellow-l)}
+.starmark{font-weight:400;color:#E0715F;font-size:16px}
+.ck input:focus-visible + .box{outline:3px solid var(--sky);outline-offset:2px}
+@keyframes tick{0%{transform:scale(.6)}100%{transform:scale(1)}}
+@media (min-width:600px){.lcat .items{grid-template-columns:repeat(3,1fr)}}
+
 footer{padding:28px 16px 40px;text-align:center;font-size:13px}
 footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
 
@@ -267,6 +306,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     <a class="l" href="#flight">航班</a>
     <a class="l" href="#days">行程</a>
     <a class="l" href="#stay">住宿</a>
+    <a class="l" href="#luggage">行李</a>
     <a class="l" href="#money">花費</a>
   </div>
 </nav>
@@ -411,6 +451,18 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   </div>
 </section>
 
+<section id="luggage">
+  <div class="wrap">
+    <h2 class="sec"><span class="dot" style="background:var(--yellow)"></span>行李清單</h2>
+    <div class="card lug-sum">
+      <div class="lug-top"><span id="lug-count">已帶 0 / 0</span><span id="lug-pct">0%</span></div>
+      <div class="bar" role="progressbar" aria-label="行李打包進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="lug-prog"><i id="lug-bar"></i></div>
+    </div>
+    <div id="lug-body"></div>
+    <button class="btn" id="lug-reset" type="button">全部取消勾選</button>
+  </div>
+</section>
+
 <section id="money">
   <div class="wrap">
     <h2 class="sec"><span class="dot" style="background:var(--coral)"></span>花費統計</h2>
@@ -467,12 +519,12 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       lodging:{icon:"🏨", name:"Vessel Hotel Campana（美國村）", note:"連住第二晚，今晚回美國村。"},
       ill:"whale",
       items:[
-        {t:"07:30–08:45", h:"美國村提早出發 ➔ 美麗海水族館", p:"走高速公路直奔北部（約 1 小時 15 分），避開塞車與排隊車潮。", tags:[["hwy","🛣️ 高速公路"],["drive","🚗 自駕約 1 小時 15 分"]], pl:"chatan", s:"出發", gs:"美國村出發", q:"沖縄美ら海水族館"},
+        {t:"07:30–08:45", h:"美國村提早出發 ➔ 美麗海水族館", p:"走高速公路直奔北部（約 1 小時 15 分），避開塞車與排隊車潮。", tags:[["hwy","🛣️ 高速公路"],["drive","🚗 自駕約 1 小時 15 分"]], pl:"chatan", s:"出發", gs:"美國村出發", gq:"ベッセルホテル カンパーナ 沖縄", q:"沖縄美ら海水族館"},
         {t:"08:45–09:15", h:"開館入場 ➔ 直奔「黑潮之海」抽指定席號碼牌", p:"8:30 開館，9:00 前入場。直奔黑潮之海大水槽旁，抽取「Ocean Blue 咖啡廳指定席」現場號碼牌。", tags:[["walk","🚶 館內步行"]], warn:"關鍵任務：9:00 前入場抽號碼牌", must:true, pl:"aqua", s:"水族館", gs:"美麗海水族館", q:"沖縄美ら海水族館"},
         {t:"09:30–10:30", h:"Ocean Blue 海景咖啡廳（鯨鯊貼窗第一排）", p:"9:30 準時入座。一邊喝特調、吃輕食，一邊看鯨鯊與魟魚在身邊游過。", tags:[["walk","🚶 館內"]], must:true, pl:"aqua", s:"Ocean Blue", q:"オーシャンブルー 美ら海水族館"},
         {t:"10:30–12:30", h:"美麗海水族館漫步＆ 11:00 戶外海豚秀", p:"參觀館內展區，11:00 到戶外劇場免費看海豚秀。", tags:[["walk","🚶 步行"]], pl:"aqua", s:"海豚秀", q:"沖縄美ら海水族館 オキちゃん劇場"},
         {t:"13:00–14:15", h:"暖暮拉麵（名護店）", p:"從水族館往古宇利島，正好順路經過名護市區。店門口有專用停車場，排隊人潮比國際通少，吃冠軍豚骨拉麵加一口餃子。", tags:[["drive","🚗 自駕・有專屬停車場"]], pl:"nago", s:"暖暮拉麵", q:"暖暮 名護店"},
-        {t:"15:00–19:30", h:"古宇利島＆くるまえび キッチン TAMAYA（晚餐）", p:"① 古宇利大橋＆心形岩（Heart Rock）漫步：看漸層藍海景與夕陽。<br>② くるまえび キッチン TAMAYA：養殖場直營車海老專門店，直上「Mega 哥吉拉巨無霸車海老套餐」，有活蝦刺身、天婦羅與鹽烤大蝦。<br>備選：想吃蝦蝦飯，可以外帶小份到海灘吃。", tags:[["drive","🚗 自駕"]], must:true, pl:"kouri", s:"古宇利島", q:"くるまえびキッチン TAMAYA", more:[["古宇利大橋","古宇利大橋"],["心形岩","古宇利島 ハートロック"]]},
+        {t:"15:00–19:30", h:"古宇利島＆くるまえび キッチン TAMAYA（晚餐）", p:"① 古宇利大橋＆心形岩（Heart Rock）漫步：看漸層藍海景與夕陽。<br>② くるまえび キッチン TAMAYA：養殖場直營車海老專門店，直上「Mega 哥吉拉巨無霸車海老套餐」，有活蝦刺身、天婦羅與鹽烤大蝦。<br>備選：想吃蝦蝦飯，可以外帶小份到海灘吃。", tags:[["drive","🚗 自駕"]], must:true, pl:"kouri", s:"古宇利島", gq:"古宇利島", q:"くるまえびキッチン TAMAYA", more:[["古宇利大橋","古宇利大橋"],["心形岩","古宇利島 ハートロック"]]},
         {t:"20:30–22:30", h:"北谷民謠 Live 酒場 しまんちゅ", p:"從古宇利島開車回美國村飯店小酌，聽三線琴 Live 表演，全場互動打節拍。", tags:[["drive","🚗 自駕回美國村"],["todo","⚠️ 待預約"]], pl:"chatan", s:"しまんちゅ", gs:"美國村民謠酒場", q:"民謡ライブ酒場 しまんちゅ 北谷"}
       ]
     },
@@ -591,6 +643,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   function mapUrl(q){ return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q); }
 
   /* ---------- schematic route map ---------- */
+  var mapOpen = true;
   var COLORS = ["#F2A497","#F6D27A","#A8D3E6","#B9DAA5"];
   function reduced(){ return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches; }
 
@@ -599,7 +652,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     d.items.forEach(function(it,i){
       var g = groups[groups.length-1];
       if(g && g.pl===it.pl){ g.idx.push(i); }
-      else groups.push({pl:it.pl, idx:[i], s:(it.gs||it.s)});
+      else groups.push({pl:it.pl, idx:[i], s:(it.gs||it.s), q:(it.gq||it.q)});
     });
     var W=340, P0=40, MAXH=400, MINH=220, k=0.895;
     var lats=[], lons=[];
@@ -663,8 +716,12 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       svg += '<g class="pin" data-go="'+d.key+'-'+first+'" tabindex="0" role="button" aria-label="第 '+label+' 站 '+esc(g.s)+'">';
       svg += '<rect class="pin-bg" x="'+(p.x-w/2).toFixed(1)+'" y="'+(p.y-14).toFixed(1)+'" width="'+w+'" height="28" rx="14" fill="'+col+'" stroke="#3E3A39" stroke-width="3"/>';
       svg += '<text x="'+p.x.toFixed(1)+'" y="'+(p.y+1).toFixed(1)+'" text-anchor="middle" dominant-baseline="central" font-size="13" fill="#3E3A39">'+label+'</text>';
-      svg += '<text x="'+p.x.toFixed(1)+'" y="'+(p.y+30).toFixed(1)+'" text-anchor="middle" font-size="11.5" fill="#3E3A39" stroke="#FFFCF6" stroke-width="4" paint-order="stroke" stroke-linejoin="round">'+esc(g.s)+'</text>';
       svg += '</g>';
+      var nw = Math.max(40, g.s.length*12+12);
+      svg += '<a class="pin-name" href="'+mapUrl(g.q)+'" target="_blank" rel="noopener noreferrer" aria-label="在 Google 地圖開啟 '+esc(g.s)+'">';
+      svg += '<rect x="'+(p.x-nw/2).toFixed(1)+'" y="'+(p.y+17).toFixed(1)+'" width="'+nw+'" height="22" rx="11" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5"/>';
+      svg += '<text x="'+p.x.toFixed(1)+'" y="'+(p.y+29).toFixed(1)+'" text-anchor="middle" dominant-baseline="central" font-size="11.5" fill="#3E3A39">'+esc(g.s)+'</text>';
+      svg += '</a>';
     });
     // car
     var carG = '<g stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><path d="M-14 7v-5q0-3 3-4l4-1q3-6 8-6h6q4 0 7 5l3 1q3 1 3 4v6z" fill="#F6D27A"/><path d="M-4-5q2-4 6-4h4v6H-6z" fill="#A8D3E6"/><circle cx="-7" cy="8" r="4" fill="#3E3A39"/><circle cx="10" cy="8" r="4" fill="#3E3A39"/></g>';
@@ -682,11 +739,11 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     pos.forEach(function(p,gi){
       var g=p.g, first=g.idx[0], last=g.idx[g.idx.length-1];
       var label = (g.idx.length>1) ? ((first+1)+"–"+(last+1)) : String(first+1);
-      legend += '<button type="button" class="lg c'+(gi%4)+'" data-go="'+d.key+'-'+first+'"><b>'+label+'</b>'+esc(g.s)+'</button>';
+      legend += '<a class="lg c'+(gi%4)+'" target="_blank" rel="noopener noreferrer" href="'+mapUrl(g.q)+'"><b>'+label+'</b>'+esc(g.s)+'</a>';
     });
     legend += '</div>';
 
-    return '<div class="card mapcard"><div class="map-title"><span>🚗 今日行車路線</span><small>示意圖・點站名跳到行程</small></div>'+svg+legend+'</div>';
+    return '<details class="card mapcard"'+(mapOpen?' open':'')+'><summary class="map-title"><span>🚗 今日行車路線</span><small>示意圖・點站名開 Google 地圖</small></summary>'+svg+legend+'</details>';
   }
 
   /* ---------- render ---------- */
@@ -758,20 +815,8 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   }
 
   /* ----- pre-trip expenses (editable list per person) ----- */
-  var SEED_J = [
-    {d:"2026-05-22", n:"機票", a:"7033", c:"TWD"},
-    {d:"2026-07-01", n:"vessel住宿兩晚", a:"3782", c:"TWD"},
-    {d:"2026-07-01", n:"那霸皇家公園兩晚", a:"3958", c:"TWD"},
-    {d:"2026-10-20", n:"駕照譯本", a:"100", c:"TWD"},
-    {d:"2026-10-20", n:"卡丁車", a:"2632", c:"TWD"},
-    {d:"2026-10-20", n:"gangala之谷導覽", a:"708", c:"TWD"},
-    {d:"2026-10-20", n:"訂位費", a:"89", c:"TWD"},
-    {d:"2026-10-21", n:"租車費", a:"3509", c:"TWD"},
-    {d:"2026-10-23", n:"機場送機", a:"785", c:"TWD"},
-    {d:"2026-10-23", n:"esim", a:"389", c:"TWD"}
-  ];
   function ensurePre(){
-    if(!ST.pre){ ST.pre = {y:[], j:SEED_J.map(function(r){ return {d:r.d,n:r.n,a:r.a,c:r.c}; })}; save(); }
+    if(!ST.pre){ ST.pre = {y:[], j:[]}; save(); }
     if(!ST.pre.y) ST.pre.y = [];
     if(!ST.pre.j) ST.pre.j = [];
   }
@@ -877,6 +922,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     save();
     refreshAll();
   }
+  panel.addEventListener("toggle", function(e){ var t=e.target; if(t && t.classList && t.classList.contains("mapcard")) mapOpen = t.open; }, true);
   panel.addEventListener("input", onEdit);
   panel.addEventListener("change", onEdit);
 
@@ -935,6 +981,59 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   renderPanel(false);
   updateSummary();
   if(m){ setTimeout(function(){ var el=document.getElementById("days"); if(el) el.scrollIntoView(); },50); }
+
+  /* ---------- luggage checklist ---------- */
+  var LUG = [
+    {k:"abroad", t:"出國專用", ic:"✈️", note:"★ 為必帶證件，租車櫃檯與街頭卡丁車都要查驗正本", star:["護照","駕照","日文譯本"], items:["外幣","esim","護照","預辦登機","飛機枕","AirTag","駕照","日文譯本"]},
+    {k:"wash", t:"盥洗用品", ic:"🪥", items:["牙刷","牙膏","潤髮乳","洗面乳","洗髮精","牙線棒","牙間刷","眼唇卸妝品","卸妝棉","睫毛卸除液"]},
+    {k:"care", t:"保養用品", ic:"🧴", items:["消腫棒","晨間乳液","晚間乳液","臉部防曬","身體防曬","棉花棒","卸妝棉片","大梳子","濕髮梳","止汗劑","眼藥水","A醇化妝水"]},
+    {k:"makeup", t:"化妝品", ic:"💄", items:["防曬","眉筆","眼線筆","唇膏","粉餅","睫毛底膏","睫毛膏","腮紅","打亮","睫毛夾","陰影","鼻影","化妝刷","定型噴霧"]},
+    {k:"elec", t:"電子產品", ic:"🔌", items:["手機","電子書","耳機","手錶","Dji","充電器"]},
+    {k:"carry", t:"隨身用品", ic:"👜", items:["行充","雨傘","髮圈","電子書","錢包","耳機","水壺","乾洗手","墨鏡","防陽帽","髮箍"]},
+    {k:"other", t:"其他", ic:"🧳", items:["香水","耳環","備用隱眼","隱眼藥水","藥品","新露露","夾腳拖","布鞋","換洗衣物","免洗內褲","垃圾袋","浴毛巾","維持器","眼鏡","吹風機","睡衣","髮膠","旅行袋","口罩","卷髮乳","枕頭套"]}
+  ];
+  var LKEY = "okinawa-trip-luggage-v1";
+  var LS = {};
+  try{ var lr = localStorage.getItem(LKEY); if(lr){ var lo = JSON.parse(lr); if(lo && typeof lo==="object") LS = lo; } }catch(e){}
+  function lsave(){ try{ localStorage.setItem(LKEY, JSON.stringify(LS)); }catch(e){} }
+  function lcount(c){ var n=0; c.items.forEach(function(it){ if(LS[c.k+"|"+it]) n++; }); return n; }
+  function buildLug(){
+    var h='';
+    LUG.forEach(function(c,ci){
+      h += '<details class="lcat c'+(ci%4)+'" open data-cat="'+c.k+'"><summary><span>'+c.ic+' '+c.t+'</span><em data-lc="'+c.k+'"></em></summary>'+(c.note?'<p class="lnote">'+c.note+'</p>':'')+'<div class="items">';
+      c.items.forEach(function(it){
+        var id = c.k+"|"+it;
+        var st = (c.star && c.star.indexOf(it)>=0);
+        h += '<label class="ck'+(st?' star':'')+'"><input type="checkbox" data-lk="'+esc(id)+'"'+(LS[id]?' checked':'')+'><span class="box" aria-hidden="true"></span><span class="tx">'+(st?'<b class="starmark" aria-label="必帶">★</b> ':'')+esc(it)+'</span></label>';
+      });
+      h += '</div></details>';
+    });
+    document.getElementById("lug-body").innerHTML = h;
+    lupdate();
+  }
+  function lupdate(){
+    var total=0, done=0;
+    LUG.forEach(function(c){
+      var n=lcount(c); total+=c.items.length; done+=n;
+      var em = document.querySelector('[data-lc="'+c.k+'"]');
+      if(em){ em.textContent = n+" / "+c.items.length; var d=em.closest(".lcat"); if(d) d.classList.toggle("done", n===c.items.length); }
+    });
+    var pct = total ? Math.round(done/total*100) : 0;
+    document.getElementById("lug-count").textContent = "已帶 "+done+" / "+total+" 件";
+    document.getElementById("lug-pct").textContent = pct+"%";
+    document.getElementById("lug-bar").style.width = pct+"%";
+    document.getElementById("lug-prog").setAttribute("aria-valuenow", pct);
+  }
+  document.getElementById("lug-body").addEventListener("change", function(e){
+    var t=e.target; if(!t || !t.getAttribute) return;
+    var id=t.getAttribute("data-lk"); if(!id) return;
+    if(t.checked) LS[id]=true; else delete LS[id];
+    lsave(); lupdate();
+  });
+  document.getElementById("lug-reset").addEventListener("click", function(){
+    if(confirm("確定要把行李清單全部取消勾選嗎？")){ LS={}; lsave(); buildLug(); }
+  });
+  buildLug();
 
   /* ---------- countdown ---------- */
   var target = new Date("2026-11-07T00:00:00+08:00").getTime();
