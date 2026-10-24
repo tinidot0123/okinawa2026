@@ -255,6 +255,39 @@ details.pre{margin-bottom:10px}
 @keyframes tick{0%{transform:scale(.6)}100%{transform:scale(1)}}
 @media (min-width:600px){.lcat .items{grid-template-columns:repeat(3,1fr)}}
 
+.per{border-top:3px dashed var(--ink);padding:7px 0}
+.per:first-child{border-top:0}
+.per .drow{border-top:0;padding:0}
+.sitems{margin-top:3px;display:grid;gap:1px}
+.si{display:flex;align-items:baseline;gap:8px;font-size:12px;line-height:1.55;opacity:.92;padding-left:10px}
+.si .sn{flex:1;min-width:0;overflow-wrap:anywhere}
+.si .sa{white-space:nowrap}
+.sbtn{border:0;background:none;padding:0 3px;cursor:pointer;font-size:12px;line-height:1.4}
+.sbtn:focus-visible{outline:3px solid var(--sky);outline-offset:1px;border-radius:6px}
+
+.jump{position:sticky;top:var(--nav);z-index:30;display:flex;gap:10px;background:var(--paper);margin:0 -16px 14px;padding:8px 16px;border-bottom:var(--line)}
+.pj{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border:var(--line);border-radius:18px;padding:3px 8px;font-size:16px;line-height:1.35;box-shadow:3px 3px 0 var(--ink)}
+.pj small{font-size:12px}
+.pj.y{background:var(--sky)}
+.pj.j{background:var(--coral)}
+.pj:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.pj:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.person{scroll-margin-top:calc(var(--nav) + 64px)}
+
+.btn.quick{width:100%;margin-bottom:14px;background:var(--yellow);padding:6px 18px;font-size:16px}
+.fab{position:fixed;right:14px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:45;display:none;cursor:pointer;border:var(--line);border-radius:999px;background:var(--yellow);padding:6px 16px;font-size:16px;box-shadow:4px 4px 0 var(--ink)}
+.fab.show{display:block}
+.fab:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.fab:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+dialog.qa{border:var(--line);border-radius:26px 26px 0 0;background:var(--paper);color:var(--ink);padding:0;width:min(560px,100%);max-width:100%;margin:auto auto 0;box-shadow:0 -4px 0 var(--ink)}
+dialog.qa::backdrop{background:rgba(62,58,57,.35)}
+.qa-in{padding:14px 16px calc(16px + env(safe-area-inset-bottom,0px))}
+dialog.qa[open]{animation:sheet .35s cubic-bezier(.3,1.4,.5,1)}
+@keyframes sheet{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@media (min-width:600px){dialog.qa{margin:auto;border-radius:26px;box-shadow:5px 5px 0 var(--ink)}}
+.toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);z-index:60;background:var(--green);border:var(--line);border-radius:999px;padding:4px 16px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;box-shadow:3px 3px 0 var(--ink)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
 footer{padding:28px 16px 40px;text-align:center;font-size:13px}
 footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
 
@@ -470,6 +503,10 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       <label for="rate">匯率：1 台幣 ≈ <input id="rate" type="number" inputmode="decimal" step="0.01" min="0.01" value="4.8"> 日圓</label>
       <small>各項花費可選台幣或日圓，統計時依這個匯率換算成兩種幣別。匯率會浮動，請依你實際換匯的匯率自行調整。資料只存在這支手機／這個瀏覽器裡。</small>
     </div>
+    <div class="jump" id="money-jump" aria-label="快速切換">
+      <a class="pj y" href="#person-y"><span>彥婷</span><small id="pj-y"></small></a>
+      <a class="pj j" href="#person-j"><span>婕瑜</span><small id="pj-j"></small></a>
+    </div>
     <div id="money-body"></div>
     <button class="btn" id="reset" type="button">清除所有花費紀錄</button>
   </div>
@@ -481,6 +518,24 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   <p>祝你們玩得開心，記得慢慢開、平安回家 🌺</p>
   <p style="opacity:.7;margin-top:2px">行程版本 V33</p>
 </footer>
+
+<button class="fab" id="fab" type="button" aria-label="快速記一筆其他花費">💰 記一筆</button>
+<dialog class="qa" id="qa" aria-labelledby="qa-title">
+  <div class="qa-in">
+    <div class="pr1" style="justify-content:space-between;margin-bottom:8px">
+      <b id="qa-title" style="font-weight:400;font-size:18px">💰 記一筆其他花費</b>
+      <button type="button" class="pdel" id="qa-close" aria-label="關閉">✕</button>
+    </div>
+    <div style="display:grid;gap:8px">
+      <select id="qa-day" aria-label="記到哪一天" style="border:3px solid var(--ink);border-radius:14px;background:var(--paper);padding:3px 10px;font-size:15px;width:100%"></select>
+      <input type="text" id="qa-n" placeholder="項目（如：停車費、伴手禮）" aria-label="項目" style="border:3px solid var(--ink);border-radius:14px;background:var(--paper);padding:3px 10px;font-size:15px;width:100%">
+      <div class="exprow"><span class="who y"><i></i>彥婷</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="金額" aria-label="彥婷 金額" id="qa-ay"><select id="qa-cy" aria-label="彥婷 幣別"><option value="JPY">日圓</option><option value="TWD">台幣</option></select></div>
+      <div class="exprow"><span class="who j"><i></i>婕瑜</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="金額" aria-label="婕瑜 金額" id="qa-aj"><select id="qa-cj" aria-label="婕瑜 幣別"><option value="JPY">日圓</option><option value="TWD">台幣</option></select></div>
+      <button type="button" class="btn" id="qa-add" style="background:var(--yellow);padding:6px 18px;font-size:16px">新增</button>
+    </div>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (function(){
@@ -594,11 +649,11 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
 
   /* ---------- expense state ---------- */
   var KEY = "okinawa-trip-money-v1";
-  var ST = {rate:4.8, e:{}};
+  var ST = {rate:4.8, e:{}, pre:null, x:{}};
   function load(){
     try{
       var r = localStorage.getItem(KEY);
-      if(r){ var o = JSON.parse(r); if(o && typeof o==="object"){ ST.rate = (+o.rate>0) ? +o.rate : 4.8; ST.e = (o.e && typeof o.e==="object") ? o.e : {}; ST.pre = (o.pre && typeof o.pre==="object") ? o.pre : null; } }
+      if(r){ var o = JSON.parse(r); if(o && typeof o==="object"){ ST.rate = (+o.rate>0) ? +o.rate : 4.8; ST.e = (o.e && typeof o.e==="object") ? o.e : {}; ST.pre = (o.pre && typeof o.pre==="object") ? o.pre : null; ST.x = (o.x && typeof o.x==="object") ? o.x : {}; } }
     }catch(e){}
   }
   function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ST)); }catch(e){} }
@@ -611,7 +666,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   function num(v){ var n = parseFloat(v); return (isFinite(n) && n>0) ? n : 0; }
   function fN(n){ return Math.round(n).toLocaleString("en-US"); }
   function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
-  function keysOfDay(d){ var ks=[]; d.items.forEach(function(_,i){ ks.push(d.key+"-"+i); }); ks.push(d.key+"-x"); return ks; }
+  function keysOfDay(d){ var ks=[]; d.items.forEach(function(_,i){ ks.push(d.key+"-"+i); }); return ks; }
   function sumKeys(ks,w){
     var t=0, j=0;
     ks.forEach(function(k){ var e=ent(k,w), n=num(e.a); if(e.c==="TWD") t+=n; else j+=n; });
@@ -774,6 +829,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     var d = DAYS[cur];
     var html = '';
     html += '<div class="day-head"><div class="ill">'+ILL[d.ill]+'</div><div><div class="sub">'+d.label+'｜'+d.date+' ('+d.wd+')・'+d.sub+'</div><h3>'+d.title+'</h3></div></div>';
+    html += '<button type="button" class="btn quick" data-act="qopen">💰 記一筆其他花費</button>';
     html += buildMap(d);
     html += '<div class="card lodging"><div class="ic">'+d.lodging.icon+'</div><div><b>'+d.lodging.name+'</b><p>'+d.lodging.note+'</p></div></div>';
     html += '<ol class="tl">';
@@ -795,8 +851,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       html += '</div></li>';
     });
     html += '</ol>';
-    var xk = d.key+"-x";
-    html += '<div class="card extra"><h4>🧾 當日其他花費</h4><p>景點以外的花費，例如交通、停車、伴手禮、飲料等。</p><div class="expbody" style="border:0;padding:0">'+expRows(xk)+'</div></div>';
+    html += '<div class="card extra"><h4>🧾 當日其他花費</h4><p>景點以外的花費（交通、停車、伴手禮、飲料…），可自行新增項目。</p><div id="xlist" style="display:grid;gap:8px">'+xRowsHtml(d.key)+'</div><button type="button" class="btn small" style="margin-top:10px" data-act="xadd">＋ 新增項目</button></div>';
     html += '<div class="card daytotal"><h4>📒 '+d.label+' 花費小計</h4>'
       + '<div class="drow"><span>彥婷</span><span class="amt" id="dt-y"></span></div>'
       + '<div class="drow"><span>婕瑜</span><span class="amt" id="dt-j"></span></div></div>';
@@ -810,15 +865,30 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     var d = DAYS[cur], ks = keysOfDay(d);
     WHO.forEach(function(w){
       var el = document.getElementById("dt-"+w.id);
-      if(el) el.innerHTML = dualHtml(sumKeys(ks,w.id));
+      if(el) el.innerHTML = dualHtml(daySum(d,w.id));
     });
   }
 
-  /* ----- pre-trip expenses (editable list per person) ----- */
+  /* ----- pre-trip (add form -> shows in summary list) and per-day extra items ----- */
+  var preEdit = {y:-1, j:-1};
   function ensurePre(){
-    if(!ST.pre){ ST.pre = {y:[], j:[]}; save(); }
+    if(!ST.pre) ST.pre = {y:[], j:[]};
     if(!ST.pre.y) ST.pre.y = [];
     if(!ST.pre.j) ST.pre.j = [];
+    if(!ST.x) ST.x = {};
+  }
+  function migrateX(){
+    DAYS.forEach(function(d){
+      var k = d.key+"-x", rec = ST.e[k];
+      if(!rec) return;
+      var y = rec.y, j = rec.j;
+      if((y && num(y.a)) || (j && num(j.a))){
+        if(!ST.x[d.key]) ST.x[d.key] = [];
+        ST.x[d.key].push({n:"其他花費", y:y||{a:"",c:"JPY"}, j:j||{a:"",c:"JPY"}});
+      }
+      delete ST.e[k];
+    });
+    save();
   }
   function preSum(w){
     var t=0, j=0;
@@ -826,85 +896,143 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     return {t:t, j:j};
   }
   function addS(a,b){ return {t:a.t+b.t, j:a.j+b.j}; }
-  function preRowsHtml(w){
-    var rows = ST.pre[w] || [];
-    if(!rows.length) return '<p class="empty">還沒有行前花費，按下面的按鈕新增。</p>';
+  function extraSum(dk,w){
+    var t=0, j=0;
+    (ST.x[dk]||[]).forEach(function(r){ var e=r[w]; if(!e) return; var n=num(e.a); if(e.c==="TWD") t+=n; else j+=n; });
+    return {t:t, j:j};
+  }
+  function daySum(d,w){ return addS(sumKeys(keysOfDay(d),w), extraSum(d.key,w)); }
+  function amtTxt(n,c){ return (c==="TWD" ? "NT$ " : "¥ ") + fN(n); }
+  function fmtD(d){ var m = /^\d{4}-(\d\d)-(\d\d)$/.exec(d||""); return m ? (+m[1])+"/"+(+m[2]) : ""; }
+  function todayIso(){ var n=new Date(); return n.getFullYear()+"-"+("0"+(n.getMonth()+1)).slice(-2)+"-"+("0"+n.getDate()).slice(-2); }
+
+  /* day extra items (editable list inside each day) */
+  function curSel(dk,i,w,val){
+    return '<select aria-label="幣別" data-xk="'+dk+'" data-i="'+i+'" data-w="'+w+'" data-f="c"><option value="JPY"'+(val==="JPY"?' selected':'')+'>日圓</option><option value="TWD"'+(val==="TWD"?' selected':'')+'>台幣</option></select>';
+  }
+  function xRowsHtml(dk){
+    var rows = ST.x[dk] || [];
+    if(!rows.length) return '<p class="empty">還沒有項目，按「＋ 新增項目」開始記。</p>';
     return rows.map(function(r,i){
-      var base = 'data-pw="'+w+'" data-i="'+i+'"';
-      return '<div class="prerow">'
-        + '<div class="pr1"><input type="text" placeholder="項目" aria-label="項目" '+base+' data-f="n" value="'+esc(r.n||"")+'">'
-        + '<button type="button" class="pdel" aria-label="刪除這筆" data-act="del" data-w="'+w+'" data-i="'+i+'">✕</button></div>'
-        + '<div class="pr2">'
-        + '<input type="date" aria-label="日期" '+base+' data-f="d" value="'+esc(r.d||"")+'">'
-        + '<input type="number" inputmode="decimal" min="0" step="any" placeholder="金額" aria-label="金額" '+base+' data-f="a" value="'+esc(r.a||"")+'">'
-        + '<select aria-label="幣別" '+base+' data-f="c"><option value="TWD"'+(r.c==="TWD"?' selected':'')+'>台幣</option><option value="JPY"'+(r.c==="JPY"?' selected':'')+'>日圓</option></select>'
-        + '</div></div>';
+      var h = '<div class="prerow"><div class="pr1"><input type="text" placeholder="項目（如：停車費、伴手禮）" aria-label="項目" data-xk="'+dk+'" data-i="'+i+'" data-f="n" value="'+esc(r.n||"")+'">'
+        + '<button type="button" class="pdel" aria-label="刪除這個項目" data-act="xdel" data-i="'+i+'">✕</button></div>';
+      WHO.forEach(function(w){
+        var e = r[w.id] || {a:"", c:"JPY"};
+        h += '<div class="exprow"><span class="who '+w.id+'"><i></i>'+w.name+'</span>'
+          + '<input type="number" inputmode="decimal" min="0" step="any" placeholder="金額" aria-label="'+w.name+' 金額" data-xk="'+dk+'" data-i="'+i+'" data-w="'+w.id+'" data-f="a" value="'+esc(e.a)+'">'
+          + curSel(dk,i,w.id,e.c)+'</div>';
+      });
+      return h + '</div>';
     }).join("");
   }
-  function renderPre(w){ var el = document.getElementById("pre-"+w); if(el) el.innerHTML = preRowsHtml(w); }
+  function renderX(dk){ var el = document.getElementById("xlist"); if(el) el.innerHTML = xRowsHtml(dk); }
 
+  /* summary cards */
   var moneyBuilt = false;
+  function pfEl(f,w){ return document.getElementById("pf-"+f+"-"+w); }
+  function pfClear(w){
+    pfEl("n",w).value = ""; pfEl("a",w).value = ""; pfEl("d",w).value = todayIso();
+    preEdit[w] = -1;
+    var x = pfEl("x",w); if(x) x.hidden = true;
+    var ad = document.getElementById("pf-add-"+w); if(ad) ad.textContent = "新增";
+    var m = document.getElementById("pf-mode-"+w); if(m) m.textContent = "填好按「新增」";
+  }
   function buildMoney(){
     var h = '';
     WHO.forEach(function(p){
-      h += '<div class="card person '+p.id+'"><div class="ph"><i></i>'+p.name+'</div>'
-        + '<div class="total"><small>總花費（含行前花費）</small><div class="big" id="tot-'+p.id+'"></div></div>'
-        + '<details class="exp pre" open><summary><span>🧾 行前花費（可編輯）</span><em id="pretot-'+p.id+'"></em></summary>'
-        + '<div class="expbody"><div id="pre-'+p.id+'" style="display:grid;gap:8px"></div>'
-        + '<button type="button" class="btn small" data-act="add" data-w="'+p.id+'">＋ 新增一筆</button></div></details>'
-        + '<div id="days-'+p.id+'"></div></div>';
+      var id = p.id;
+      h += '<div class="card person '+id+'" id="person-'+id+'"><div class="ph"><i></i>'+p.name+'</div>'
+        + '<div class="total"><small>總花費（含行前花費）</small><div class="big" id="tot-'+id+'"></div></div>'
+        + '<details class="exp pre"><summary><span>➕ 新增行前花費</span><em id="pf-mode-'+id+'">填好按「新增」</em></summary>'
+        + '<div class="expbody"><div class="prerow">'
+        + '<div class="pr1"><input type="text" id="pf-n-'+id+'" placeholder="項目（如：機票）" aria-label="項目"></div>'
+        + '<div class="pr2"><input type="date" id="pf-d-'+id+'" aria-label="日期">'
+        + '<input type="number" inputmode="decimal" min="0" step="any" id="pf-a-'+id+'" placeholder="金額" aria-label="金額">'
+        + '<select id="pf-c-'+id+'" aria-label="幣別"><option value="TWD">台幣</option><option value="JPY">日圓</option></select></div>'
+        + '<div class="pr1"><button type="button" class="btn small" id="pf-add-'+id+'" data-act="padd" data-w="'+id+'">新增</button>'
+        + '<button type="button" class="btn small" id="pf-x-'+id+'" data-act="pcancel" data-w="'+id+'" hidden>取消編輯</button></div>'
+        + '</div></div></details>'
+        + '<div id="days-'+id+'"></div></div>';
     });
     document.getElementById("money-body").innerHTML = h;
-    WHO.forEach(function(p){ renderPre(p.id); });
+    WHO.forEach(function(p){ pfClear(p.id); });
     moneyBuilt = true;
   }
   function updateSummary(){
     ensurePre();
     if(!moneyBuilt) buildMoney();
     WHO.forEach(function(w){
-      var allKeys = [];
-      DAYS.forEach(function(d){ allKeys = allKeys.concat(keysOfDay(d)); });
-      var pre = preSum(w.id);
-      var tb = both(addS(sumKeys(allKeys, w.id), pre));
+      var pre = preSum(w.id), grand = pre, h = '';
+      var preLines = (ST.pre[w.id]||[]).map(function(r,i){
+        var dt = fmtD(r.d);
+        return '<div class="si"><span class="sn">'+esc((dt ? dt+"　" : "")+(r.n||"未命名"))+'</span><span class="sa">'+amtTxt(num(r.a),r.c)+'</span>'
+          + '<button type="button" class="sbtn" data-act="pedit" data-w="'+w.id+'" data-i="'+i+'" aria-label="編輯這筆">✎</button>'
+          + '<button type="button" class="sbtn" data-act="pdel" data-w="'+w.id+'" data-i="'+i+'" aria-label="刪除這筆">✕</button></div>';
+      }).join("");
+      h += '<div class="per"><div class="drow"><span>行前花費</span><span class="amt">'+dualHtml(pre)+'</span></div>'+(preLines ? '<div class="sitems">'+preLines+'</div>' : '')+'</div>';
+      DAYS.forEach(function(d){
+        var s = daySum(d,w.id); grand = addS(grand,s);
+        var lines = [];
+        d.items.forEach(function(it,i){
+          var e = ent(d.key+"-"+i, w.id), n = num(e.a);
+          if(n) lines.push('<div class="si"><span class="sn">'+esc(it.s)+'</span><span class="sa">'+amtTxt(n,e.c)+'</span><button type="button" class="sbtn" data-act="idel" data-w="'+w.id+'" data-k="'+d.key+'-'+i+'" aria-label="刪除這筆">✕</button></div>');
+        });
+        (ST.x[d.key]||[]).forEach(function(r,xi){
+          var e = r[w.id], n = num(e && e.a);
+          if(n) lines.push('<div class="si"><span class="sn">其他・'+esc(r.n||"未命名")+'</span><span class="sa">'+amtTxt(n,e.c)+'</span><button type="button" class="sbtn" data-act="xdelw" data-w="'+w.id+'" data-dk="'+d.key+'" data-i="'+xi+'" aria-label="刪除這筆">✕</button></div>');
+        });
+        h += '<div class="per"><div class="drow"><span>'+d.label+'（'+d.date+'）</span><span class="amt">'+dualHtml(s)+'</span></div>'+(lines.length ? '<div class="sitems">'+lines.join("")+'</div>' : '')+'</div>';
+      });
+      var tb = both(grand);
       var te = document.getElementById("tot-"+w.id);
       if(te) te.textContent = 'NT$ '+fN(tb.twd)+'　／　¥ '+fN(tb.jpy);
-      var pe = document.getElementById("pretot-"+w.id);
-      if(pe) pe.textContent = dualLine(pre);
-      var h = '<div class="drow"><span>行前花費</span><span class="amt">'+dualHtml(pre)+'</span></div>';
-      DAYS.forEach(function(d){
-        var s = sumKeys(keysOfDay(d), w.id);
-        h += '<div class="drow"><span>'+d.label+'（'+d.date+'）</span><span class="amt">'+dualHtml(s)+'</span></div>';
-      });
+      var pj = document.getElementById("pj-"+w.id);
+      if(pj) pj.textContent = 'NT$ '+fN(tb.twd);
       var de = document.getElementById("days-"+w.id);
       if(de) de.innerHTML = h;
     });
   }
 
   var mb = document.getElementById("money-body");
-  function onPre(e){
-    var t = e.target;
-    if(!t || !t.getAttribute) return;
-    var w = t.getAttribute("data-pw"); if(!w) return;
-    var r = (ST.pre[w]||[])[+t.getAttribute("data-i")]; if(!r) return;
-    r[t.getAttribute("data-f")] = t.value;
-    save(); updateSummary();
-  }
-  mb.addEventListener("input", onPre);
-  mb.addEventListener("change", onPre);
   mb.addEventListener("click", function(e){
     var b = e.target.closest ? e.target.closest("[data-act]") : null;
     if(!b) return;
-    var w = b.getAttribute("data-w"), act = b.getAttribute("data-act");
-    if(act==="add"){
-      var n = new Date();
-      var iso = n.getFullYear()+"-"+("0"+(n.getMonth()+1)).slice(-2)+"-"+("0"+n.getDate()).slice(-2);
-      ST.pre[w].push({d:iso, n:"", a:"", c:"TWD"});
-      save(); renderPre(w); updateSummary();
-      var inputs = document.querySelectorAll('#pre-'+w+' input[data-f="n"]');
-      if(inputs.length) inputs[inputs.length-1].focus();
-    }else if(act==="del"){
-      ST.pre[w].splice(+b.getAttribute("data-i"), 1);
-      save(); renderPre(w); updateSummary();
+    var w = b.getAttribute("data-w"), act = b.getAttribute("data-act"), i = +b.getAttribute("data-i");
+    if(act==="padd"){
+      var aEl = pfEl("a",w), amt = num(aEl.value);
+      if(!amt){ aEl.focus(); return; }
+      var rec = {d:pfEl("d",w).value || todayIso(), n:(pfEl("n",w).value||"").trim() || "行前花費", a:String(aEl.value), c:(pfEl("c",w).value==="JPY" ? "JPY" : "TWD")};
+      if(preEdit[w]>=0 && ST.pre[w][preEdit[w]]) ST.pre[w][preEdit[w]] = rec; else ST.pre[w].push(rec);
+      save(); pfClear(w); updateSummary();
+    }else if(act==="pcancel"){
+      pfClear(w);
+    }else if(act==="pedit"){
+      var r = ST.pre[w][i]; if(!r) return;
+      pfEl("n",w).value = r.n||""; pfEl("a",w).value = r.a||""; pfEl("d",w).value = r.d||todayIso(); pfEl("c",w).value = (r.c==="JPY" ? "JPY" : "TWD");
+      preEdit[w] = i;
+      var x = pfEl("x",w); if(x) x.hidden = false;
+      document.getElementById("pf-add-"+w).textContent = "更新";
+      document.getElementById("pf-mode-"+w).textContent = "編輯中";
+      var det = pfEl("n",w).closest ? pfEl("n",w).closest("details") : null; if(det) det.open = true;
+      pfEl("n",w).focus();
+    }else if(act==="idel"){
+      var kk = b.getAttribute("data-k");
+      setEnt(kk, w, "a", ""); save();
+      var inp = document.querySelector('[data-k="'+kk+'"][data-w="'+w+'"][data-f="a"]');
+      if(inp) inp.value = "";
+      refreshAll();
+    }else if(act==="xdelw"){
+      var dk2 = b.getAttribute("data-dk"), row = (ST.x[dk2]||[])[i];
+      if(!row) return;
+      if(row[w]) row[w].a = "";
+      if(!num(row.y && row.y.a) && !num(row.j && row.j.a)) ST.x[dk2].splice(i,1);
+      save();
+      if(DAYS[cur].key===dk2) renderX(dk2);
+      refreshAll();
+    }else if(act==="pdel"){
+      ST.pre[w].splice(i,1);
+      if(preEdit[w]===i) pfClear(w); else if(preEdit[w]>i) preEdit[w]--;
+      save(); updateSummary();
     }
   });
 
@@ -917,6 +1045,13 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   function onEdit(e){
     var t = e.target;
     if(!t || !t.getAttribute) return;
+    var xk = t.getAttribute("data-xk");
+    if(xk){
+      var row = (ST.x[xk]||[])[+t.getAttribute("data-i")]; if(!row) return;
+      var xf = t.getAttribute("data-f"), xw = t.getAttribute("data-w");
+      if(xw){ if(!row[xw]) row[xw] = {a:"",c:"JPY"}; row[xw][xf] = t.value; } else row[xf] = t.value;
+      save(); refreshAll(); return;
+    }
     var k = t.getAttribute("data-k"); if(!k) return;
     setEnt(k, t.getAttribute("data-w"), t.getAttribute("data-f"), t.value);
     save();
@@ -936,6 +1071,23 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     var n = e.target.closest ? e.target.closest("[data-go]") : null;
     if(n) go(n.getAttribute("data-go"));
   });
+  panel.addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest("[data-act]") : null;
+    if(!b) return;
+    var act = b.getAttribute("data-act"), dk = DAYS[cur].key;
+    if(act==="qopen"){ openQA(); return; }
+    ensurePre();
+    if(act==="xadd"){
+      if(!ST.x[dk]) ST.x[dk] = [];
+      ST.x[dk].push({n:"", y:{a:"",c:"JPY"}, j:{a:"",c:"JPY"}});
+      save(); renderX(dk); refreshAll();
+      var ins = document.querySelectorAll('#xlist input[data-f="n"]');
+      if(ins.length) ins[ins.length-1].focus();
+    }else if(act==="xdel"){
+      (ST.x[dk]||[]).splice(+b.getAttribute("data-i"),1);
+      save(); renderX(dk); refreshAll();
+    }
+  });
   panel.addEventListener("keydown", function(e){
     if(e.key!=="Enter" && e.key!==" ") return;
     var n = e.target.closest ? e.target.closest(".pin") : null;
@@ -954,8 +1106,56 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     try{ history.replaceState(null,"","#days-"+(i+1)); }catch(e){}
   }
 
+  /* ---------- quick add for day extras ---------- */
+  var qa = document.getElementById("qa");
+  var qaDay = document.getElementById("qa-day");
+  var fab = document.getElementById("fab");
+  var toastEl = document.getElementById("toast");
+  var toastT = 0;
+  qaDay.innerHTML = DAYS.map(function(d){ return '<option value="'+d.key+'">'+d.label+'（'+d.date+'）</option>'; }).join("");
+  function toast(msg){
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(function(){ toastEl.classList.remove("show"); }, 2000);
+  }
+  function openQA(){
+    ensurePre();
+    qaDay.value = DAYS[cur].key;
+    document.getElementById("qa-n").value = "";
+    document.getElementById("qa-ay").value = "";
+    document.getElementById("qa-aj").value = "";
+    if(qa.showModal){ if(!qa.open) qa.showModal(); } else qa.setAttribute("open","");
+    setTimeout(function(){ document.getElementById("qa-n").focus(); }, 30);
+  }
+  function closeQA(){ if(qa.close) qa.close(); else qa.removeAttribute("open"); }
+  document.getElementById("qa-add").addEventListener("click", function(){
+    var ay = document.getElementById("qa-ay"), aj = document.getElementById("qa-aj");
+    if(!num(ay.value) && !num(aj.value)){ ay.focus(); return; }
+    var dk = qaDay.value;
+    var rec = {
+      n: (document.getElementById("qa-n").value||"").trim() || "其他花費",
+      y: {a:String(ay.value||""), c:(document.getElementById("qa-cy").value==="TWD" ? "TWD" : "JPY")},
+      j: {a:String(aj.value||""), c:(document.getElementById("qa-cj").value==="TWD" ? "TWD" : "JPY")}
+    };
+    if(!ST.x[dk]) ST.x[dk] = [];
+    ST.x[dk].push(rec);
+    save();
+    if(DAYS[cur].key===dk) renderX(dk);
+    refreshAll();
+    closeQA();
+    var dd = DAYS.filter(function(d){ return d.key===dk; })[0];
+    toast("已記到 "+(dd ? dd.label : "")+" 其他花費 ✓");
+  });
+  document.getElementById("qa-close").addEventListener("click", closeQA);
+  fab.addEventListener("click", openQA);
+  qa.addEventListener("click", function(e){ if(e.target===qa) closeQA(); });
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(en){ fab.classList.toggle("show", en[0].isIntersecting); }, {threshold:0}).observe(document.getElementById("days"));
+  }else{ fab.classList.add("show"); }
+
   /* rate + reset */
   load();
+  ensurePre();
+  migrateX();
   var rateEl = document.getElementById("rate");
   rateEl.value = ST.rate;
   rateEl.addEventListener("input", function(){
@@ -964,7 +1164,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   });
   document.getElementById("reset").addEventListener("click", function(){
     if(confirm("確定要清除彥婷和婕瑜所有的花費紀錄（含行前花費）嗎？")){
-      ST.e = {}; ST.pre = {y:[], j:[]}; save(); renderPanel(false); moneyBuilt = false; updateSummary();
+      ST.e = {}; ST.x = {}; ST.pre = {y:[], j:[]}; save(); renderPanel(false); moneyBuilt = false; updateSummary();
     }
   });
 
