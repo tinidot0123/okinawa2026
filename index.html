@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>沖繩 5 天 4 夜 女子微醺自駕行</title>
 <meta name="description" content="11/7–11/11 沖繩全程自駕行程：航班、每日路線地圖、時間軸、住宿與花費記錄">
+<meta name="theme-color" content="#FFFCF6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="沖繩小旅行">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
@@ -28,8 +34,11 @@ h2.sec .dot{width:18px;height:18px;border:var(--line);border-radius:50%;backgrou
 
 /* nav */
 .nav{position:fixed;top:0;left:0;right:0;height:var(--nav);background:var(--glass);border-bottom:var(--line);z-index:50}
-.nav .in{max-width:720px;margin:0 auto;height:100%;display:flex;align-items:center;gap:8px;padding:0 12px;overflow-x:auto;scrollbar-width:none}
-.nav .in::-webkit-scrollbar{display:none}
+.nav .in{max-width:720px;margin:0 auto;height:100%;display:flex;align-items:center;gap:8px;padding:0 12px}
+.navlinks{flex:1;min-width:0;display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;padding:3px 0}
+.navlinks::-webkit-scrollbar{display:none}
+.twtime{flex:none;white-space:nowrap;font-size:11.5px;line-height:1.5;padding:0 9px;border:2px solid var(--ink);border-radius:999px;background:var(--glass-in);letter-spacing:.2px}
+@media (max-width:430px){.brand .bt{display:none}}
 .brand{font-size:16px;white-space:nowrap;margin-right:4px;display:flex;align-items:center;gap:6px;text-decoration:none}
 .brand svg{width:26px;height:26px}
 .nav a.l{white-space:nowrap;text-decoration:none;border:var(--line);border-radius:999px;padding:2px 12px;font-size:14px;background:var(--glass)}
@@ -142,10 +151,10 @@ details.mapcard:not([open]) .map-title{border-bottom:0}
 .tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;border-left:3px dashed var(--ink)}
 .item{position:relative;margin-bottom:16px}
 .item::before{content:"";position:absolute;left:-26px;top:16px;width:19px;height:19px;border:var(--line);border-radius:50%;background:var(--sky)}
-.item:nth-child(4n+1)::before{background:var(--coral)}
-.item:nth-child(4n+2)::before{background:var(--yellow)}
-.item:nth-child(4n+3)::before{background:var(--sky)}
-.item:nth-child(4n+4)::before{background:var(--green)}
+.item.k0::before{background:var(--coral)}
+.item.k1::before{background:var(--yellow)}
+.item.k2::before{background:var(--sky)}
+.item.k3::before{background:var(--green)}
 .item .card{padding:12px 14px 14px;box-shadow:3px 3px 0 var(--ink)}
 .item.must .card{background:var(--yellow-l)}
 .item.flash .card{animation:flash 1s ease-out}
@@ -328,6 +337,30 @@ dialog.qa[open]{animation:sheet .35s cubic-bezier(.3,1.4,.5,1)}
   #print-report .none{opacity:.6}
 }
 
+.leg{list-style:none;margin:-8px 0 10px}
+.legp{display:inline-flex;flex-wrap:wrap;align-items:center;gap:2px 8px;border:2px dashed var(--ink);border-radius:999px;padding:0 12px;font-size:12px;line-height:1.7;background:var(--glass-in)}
+.legp.drive{background:var(--coral-l)}.legp.walk{background:var(--green-l)}.legp.shuttle{background:var(--sky-l)}.legp.hwy{background:var(--yellow-l)}
+.item.now .card{outline:3px solid var(--coral);outline-offset:2px}
+.nowtag{position:absolute;left:12px;top:-13px;z-index:3;background:var(--green);border:3px solid var(--ink);border-radius:999px;padding:0 10px;font-size:13px;line-height:1.5}
+.wx{margin:0 0 14px;background:var(--sky-l)}
+.wx .l1{display:flex;align-items:center;gap:8px;font-size:15px;line-height:1.5}
+.wx .l1 b{font-weight:400}
+.wx .ic{font-size:26px;line-height:1;flex:none}
+.wx .l2{margin-top:4px;font-size:13px;line-height:1.6}
+.wx .src{margin-top:4px;font-size:11px;opacity:.7}
+.rate-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.rate-row b{font-weight:400;font-size:18px}
+.rate small{display:block;margin-top:4px;font-size:12px}
+.pie{border:3px solid var(--ink);border-radius:18px;background:var(--glass-in);padding:8px 10px 10px;margin-bottom:8px}
+.pie .pt{font-size:14px;margin-bottom:4px}
+.pie .prow{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.pie svg{width:128px;height:128px;flex:none}
+.pie .lgd{flex:1;min-width:170px;display:grid;gap:4px;font-size:12px}
+.pie .lgd div{display:flex;align-items:center;gap:6px}
+.pie .sw{width:12px;height:12px;border:2px solid var(--ink);border-radius:4px;flex:none;display:inline-block}
+.pie .pct{margin-left:auto;white-space:nowrap}
+.pie .empty{margin:0}
+
 footer{padding:28px 16px 40px;text-align:center;font-size:13px}
 footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
 
@@ -375,13 +408,16 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   <div class="in">
     <a class="brand" href="#top" aria-label="回到首頁">
       <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/><path d="M12 24c4-8 12-8 16 0" fill="none" stroke="#3E3A39" stroke-width="3" stroke-linecap="round"/><circle cx="15" cy="17" r="2" fill="#3E3A39"/><circle cx="25" cy="17" r="2" fill="#3E3A39"/></svg>
-      沖繩小旅行
+      <span class="bt">沖繩小旅行</span>
     </a>
-    <a class="l" href="#flight">航班</a>
-    <a class="l" href="#days">行程</a>
-    <a class="l" href="#stay">住宿</a>
-    <a class="l" href="#luggage">行李</a>
-    <a class="l" href="#money">花費</a>
+    <div class="navlinks">
+      <a class="l" href="#flight">航班</a>
+      <a class="l" href="#days">行程</a>
+      <a class="l" href="#stay">住宿</a>
+      <a class="l" href="#luggage">行李</a>
+      <a class="l" href="#money">花費</a>
+    </div>
+    <div class="twtime" id="twtime" role="timer" aria-label="台灣時間" title="台灣時間"></div>
   </div>
 </nav>
 
@@ -541,8 +577,9 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   <div class="wrap">
     <h2 class="sec"><span class="dot" style="background:var(--coral)"></span>花費統計</h2>
     <div class="card rate">
-      <label for="rate">匯率：1 台幣 ≈ <input id="rate" type="number" inputmode="decimal" step="0.01" min="0.01" value="4.8"> 日圓</label>
-      <small>各項花費可選台幣或日圓，統計時依這個匯率換算成兩種幣別。匯率會浮動，請依你實際換匯的匯率自行調整。資料只存在這支手機／這個瀏覽器裡。按各人卡片上的「匯出 PDF」會開啟列印視窗，請選「另存為 PDF」（建議用瀏覽器直接開啟本檔案）。</small>
+      <div class="rate-row"><span>💱 即時匯率　1 台幣 ≈ <b id="rate-v">4.8</b> 日圓</span><button class="btn small" id="rate-refresh" type="button">🔄 更新</button></div>
+      <small id="rate-note"></small>
+      <small>各項花費可選台幣或日圓，統計時依這個匯率換算成兩種幣別。資料只存在這支手機／這個瀏覽器裡。按各人卡片上的「匯出 PDF」會開啟列印視窗，請選「另存為 PDF」。</small>
     </div>
     <div class="jump" id="money-jump" aria-label="快速切換">
       <a class="pj y" href="#person-y"><span>彥婷</span><small id="pj-y"></small></a>
@@ -558,6 +595,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   <svg viewBox="0 0 120 60" aria-hidden="true"><g stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M14 46q-4-18 10-24 12-4 18 4 8-8 22-4 14 6 10 24z" fill="#F6D27A"/><circle cx="36" cy="34" r="2.5" fill="#3E3A39"/><circle cx="62" cy="34" r="2.5" fill="#3E3A39"/><path d="M42 42q7 6 14 0" fill="none"/><path d="M24 22l-4-10 10 6M64 22l6-10 4 12" fill="#F2A497"/></g></svg>
   <p>祝你們玩得開心，記得慢慢開、平安回家 🌺</p>
   <p style="opacity:.7;margin-top:2px">行程版本 V33</p>
+  <p id="offline-note" style="opacity:.75;margin-top:2px;font-size:12px"></p>
 </footer>
 
 <button class="fab" id="fab" type="button" aria-label="新增其他花費">＋新增其他花費</button>
@@ -676,6 +714,32 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       ]
     }
   ];
+
+  /* ---------- derived day data, legs between spots, Okinawa clock ---------- */
+  DAYS.forEach(function(d){
+    var mm = /^(\d+)\/(\d+)$/.exec(d.date);
+    d.iso = "2026-" + ("0"+mm[1]).slice(-2) + "-" + ("0"+mm[2]).slice(-2);
+    d.wx = (d.key==="D2") ? "north" : "naha";
+  });
+  /* transport between spot i-1 and spot i (estimates are marked 約) */
+  var LEGS = {
+    D1:{1:[["drive","🚗 自駕約 20 分"]],2:[["drive","🚗 自駕約 2 分"]],3:[["drive","🚗 自駕約 20 分"]],4:[["drive","🚗 自駕約 25 分"]],5:[["walk","🚶 步行約 10 分"]],6:[["walk","🚶 步行約 10 分"]]},
+    D2:{1:[["hwy","🛣️ 高速公路"],["drive","🚗 自駕約 1 小時 15 分"]],2:[["walk","🚶 館內步行約 5 分"]],3:[["walk","🚶 館內步行約 10 分"]],4:[["drive","🚗 自駕約 30 分"]],5:[["drive","🚗 自駕約 30 分"]],6:[["hwy","🛣️ 高速公路"],["drive","🚗 自駕約 1 小時 30 分"]]},
+    D3:{1:[["drive","🚗 自駕約 30 分"]],2:[["drive","🚗 自駕約 5 分"]],3:[["drive","🚗 自駕約 20 分"]],5:[["hwy","🛣️ 高速公路"],["drive","🚗 自駕約 40 分"]],6:[["drive","🚗 自駕約 40 分"]],7:[["walk","🚶 步行約 3 分"]],8:[["walk","🚶 步行約 2–3 分"]]},
+    D4:{1:[["drive","🚗 自駕約 25 分"]],3:[["drive","🚗 自駕約 20–25 分"]],4:[["drive","🚗 自駕約 15 分"]],5:[["walk","🚶 步行約 3–5 分"]]},
+    D5:{1:[["drive","🚗 自駕約 8 分"]],2:[["drive","🚗 自駕約 15 分"]],3:[["drive","🚗 自駕約 3 分"]],4:[["drive","🚗 自駕約 2 分（或步行）"]],5:[["drive","🚗 自駕約 25 分"]],6:[["drive","🚗 自駕約 10 分"]],7:[["shuttle","🚌 接駁車約 15 分"]]}
+  };
+  function jstNow(){ var t = new Date(Date.now() + 9*3600*1000); return {iso:t.toISOString().slice(0,10), min:t.getUTCHours()*60+t.getUTCMinutes()}; }
+  function startMin(it){ var m=/^(\d\d):(\d\d)/.exec(it.t); return m ? (+m[1])*60+(+m[2]) : 0; }
+  function endMin(it){ var m=/[–-](\d\d):(\d\d)/.exec(it.t); return m ? (+m[1])*60+(+m[2]) : startMin(it)+60; }
+  function nowInfo(d){
+    var n = jstNow(); if(d.iso!==n.iso) return null;
+    var i;
+    for(i=0;i<d.items.length;i++){ if(startMin(d.items[i])<=n.min && n.min<endMin(d.items[i])) return {i:i, label:"進行中"}; }
+    for(i=0;i<d.items.length;i++){ if(startMin(d.items[i])>n.min) return {i:i, label:"接下來"}; }
+    return {i:d.items.length-1, label:"已結束"};
+  }
+  function todayIndex(){ var n = jstNow(), r = -1; DAYS.forEach(function(d,i){ if(d.iso===n.iso) r = i; }); return r; }
 
   var WHO = [{id:"y",name:"彥婷"},{id:"j",name:"婕瑜"}];
 
@@ -872,12 +936,18 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     var d = DAYS[cur];
     var html = '';
     html += '<div class="day-head"><div class="ill">'+ILL[d.ill]+'</div><div><div class="sub">'+d.label+'｜'+d.date+' ('+d.wd+')・'+d.sub+'</div><h3>'+d.title+'</h3></div></div>';
+    html += '<div class="card wx" id="wxbox">'+wxHtml(d)+'</div>';
+    if(nowInfo(d)) html += '<button type="button" class="btn small" style="margin:0 0 12px" data-act="gonow">📍 跳到現在的行程</button>';
     html += buildMap(d);
     html += '<div class="card lodging"><div class="ic">'+d.lodging.icon+'</div><div><b>'+d.lodging.name+'</b><p>'+d.lodging.note+'</p></div></div>';
     html += '<ol class="tl">';
     d.items.forEach(function(it,i){
       var k = d.key+"-"+i;
-      html += '<li class="item'+(it.must?' must':'')+'" id="it-'+k+'"><div class="card">';
+      var lg = LEGS[d.key] && LEGS[d.key][i];
+      if(lg && lg.length){
+        html += '<li class="leg" aria-label="交通方式"><span class="legp '+lg[0][0]+'">'+lg.map(function(x){ return '<span>'+x[1]+'</span>'; }).join("")+'</span></li>';
+      }
+      html += '<li class="item k'+(i%4)+(it.must?' must':'')+'" id="it-'+k+'"><div class="card">';
       if(it.must) html += '<span class="badge-must">必去</span>';
       html += '<div class="mapcol"><a class="mini" target="_blank" rel="noopener noreferrer" href="'+mapUrl(it.q)+'" aria-label="在 Google 地圖開啟 '+esc(it.s)+'">'+PINSVG+'Google Map</a>';
       (it.more||[]).forEach(function(m){
@@ -887,7 +957,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       html += '<span class="time">'+it.t+'</span><h4>'+it.h+'</h4><p>'+it.p+'</p>';
       if(it.warn) html += '<div class="warn">⏰ '+it.warn+'</div>';
       html += '<div class="foot"><div class="chips">';
-      it.tags.forEach(function(tg){ html += '<span class="chip '+tg[0]+'">'+tg[1]+'</span>'; });
+      it.tags.forEach(function(tg){ if(tg[0]==='ok' || tg[0]==='todo' || tg[1].indexOf('✈️')>=0) html += '<span class="chip '+tg[0]+'">'+tg[1]+'</span>'; });
       html += '</div><button type="button" class="mini spend" data-act="xp" data-k="'+k+'" aria-expanded="false" aria-controls="ex-'+k+'"><svg class="pl" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 1.2v7.6M1.2 5h7.6" stroke="#3E3A39" stroke-width="2.8" stroke-linecap="round"/></svg>新增花費</button></div>';
       html += '<div class="sumtxt" data-sum="'+k+'">'+itemSum(k)+'</div>';
       html += '<div class="expbody ex" id="ex-'+k+'" hidden>'+expRows(k)+'</div>';
@@ -902,6 +972,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     panel.classList.remove("pop");
     if(animate){ void panel.offsetWidth; panel.classList.add("pop"); }
     updateDayTotals();
+    updateNowMarks();
   }
 
   function updateDayTotals(){
@@ -986,6 +1057,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       var id = p.id;
       h += '<div class="card person '+id+'" id="person-'+id+'"><div class="ph"><i></i>'+p.name+'<button type="button" class="btn small pdfbtn" data-act="pdf" data-w="'+id+'">📄 匯出 PDF</button></div>'
         + '<div class="total"><small>總花費（含行前花費）</small><div class="big" id="tot-'+id+'"></div></div>'
+        + '<div id="pie-'+id+'"></div>'
         + '<details class="exp pre"><summary><span>➕ 新增行前花費</span><em id="pf-mode-'+id+'">填好按「新增」</em></summary>'
         + '<div class="expbody"><div class="prerow">'
         + '<div class="pr1"><input type="text" id="pf-n-'+id+'" placeholder="項目（如：機票）" aria-label="項目"></div>'
@@ -1031,6 +1103,8 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       if(te) te.textContent = 'NT$ '+fN(tb.twd)+'　／　¥ '+fN(tb.jpy);
       var pj = document.getElementById("pj-"+w.id);
       if(pj) pj.textContent = 'NT$ '+fN(tb.twd);
+      var pe = document.getElementById("pie-"+w.id);
+      if(pe) pe.innerHTML = pieHtml(w.id);
       var de = document.getElementById("days-"+w.id);
       if(de) de.innerHTML = h;
     });
@@ -1065,9 +1139,17 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     });
     var gb = both(grand);
     return '<h1>沖繩 5 天 4 夜 花費明細・'+esc(who.name)+'</h1>'
-      + '<div class="meta">旅程 11/7–11/11　｜　匯率 1 台幣 ≈ '+esc(rate)+' 日圓　｜　製表日期 '+todayIso()+'</div>'
+      + '<div class="meta">旅程 11/7–11/11　｜　匯率 1 台幣 ≈ '+esc(rateTxt())+' 日圓　｜　製表日期 '+todayIso()+'</div>'
       + '<div class="gt">總花費　NT$ '+fN(gb.twd)+'　／　¥ '+fN(gb.jpy)+'</div>'
+      + catReport(w)
       + '<table><thead><tr><th>項目</th><th class="r">原幣金額</th><th class="r">台幣</th><th class="r">日圓</th></tr></thead><tbody>'+body+'</tbody></table>';
+  }
+  function catReport(w){
+    var rows = catTotals(w);
+    if(!rows.length) return '';
+    return '<table style="margin-bottom:12px"><thead><tr><th>分類（自動判斷）</th><th class="r">占比</th><th class="r">台幣</th><th class="r">日圓</th></tr></thead><tbody>'
+      + rows.map(function(r){ return '<tr><td>'+r.n+'</td><td class="r">'+(Math.round(r.pct*10)/10)+'%</td><td class="r">NT$ '+fN(r.jpy/ST.rate)+'</td><td class="r">¥ '+fN(r.jpy)+'</td></tr>'; }).join("")
+      + '</tbody></table>';
   }
   function printReport(w){
     var who = WHO.filter(function(x){ return x.id===w; })[0]; if(!who) return;
@@ -1163,6 +1245,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     var b = e.target.closest ? e.target.closest("[data-act]") : null;
     if(!b) return;
     var act = b.getAttribute("data-act"), dk = DAYS[cur].key;
+    if(act==="gonow"){ scrollNow(); return; }
     if(act==="xp"){
       var kx = b.getAttribute("data-k"), pn = document.getElementById("ex-"+kx);
       if(pn){ var was = pn.hidden; pn.hidden = !was; b.setAttribute("aria-expanded", was ? "true" : "false"); }
@@ -1244,16 +1327,200 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     new IntersectionObserver(function(en){ fab.classList.toggle("show", en[0].isIntersecting); }, {threshold:0}).observe(document.getElementById("days"));
   }else{ fab.classList.add("show"); }
 
+  /* ---------- Taiwan clock in the top bar ---------- */
+  var twEl = document.getElementById("twtime");
+  function tickTW(){
+    var t = new Date(Date.now() + 8*3600*1000);
+    function p(n){ return n<10 ? "0"+n : ""+n; }
+    if(twEl) twEl.textContent = "🇹🇼 " + (t.getUTCMonth()+1) + "/" + t.getUTCDate() + "（" + "日一二三四五六".charAt(t.getUTCDay()) + "）" + p(t.getUTCHours()) + ":" + p(t.getUTCMinutes());
+  }
+  tickTW(); setInterval(tickTW, 20000);
+
+  /* ---------- network helper ---------- */
+  function fetchJSON(url, ms){
+    return new Promise(function(res,rej){
+      var done = false, ctl = (typeof AbortController!=="undefined") ? new AbortController() : null;
+      var t = setTimeout(function(){ if(!done){ done = true; if(ctl) ctl.abort(); rej(new Error("timeout")); } }, ms || 9000);
+      fetch(url, ctl ? {signal:ctl.signal} : undefined).then(function(r){
+        if(!r.ok) throw new Error("http "+r.status);
+        return r.json();
+      }).then(function(j){ if(!done){ done = true; clearTimeout(t); res(j); } })
+        .catch(function(e){ if(!done){ done = true; clearTimeout(t); rej(e); } });
+    });
+  }
+  function hhmm(ts){ var t = new Date(ts); function p(n){ return n<10?"0"+n:""+n; } return (t.getMonth()+1)+"/"+t.getDate()+" "+p(t.getHours())+":"+p(t.getMinutes()); }
+
+  /* ---------- weather (Open-Meteo, cached for offline) ---------- */
+  var WXPOS = {naha:[26.2124,127.6809,"那霸"], north:[26.694,127.878,"本部・名護"]};
+  var WXKEY = "okinawa-trip-weather-v1";
+  var WXD = {}, WXFAIL = false;
+  try{ var wr = localStorage.getItem(WXKEY); if(wr){ var wj = JSON.parse(wr); if(wj && typeof wj==="object"){ WXD = wj; Object.keys(WXD).forEach(function(k){ if(WXD[k]) WXD[k].stale = true; }); } } }catch(e){}
+  function wxSave(){ try{ localStorage.setItem(WXKEY, JSON.stringify(WXD)); }catch(e){} }
+  function wxCode(c){
+    if(c===0) return ["☀️","晴朗"]; if(c===1) return ["🌤️","大致晴朗"]; if(c===2) return ["⛅","多雲時晴"]; if(c===3) return ["☁️","陰天"];
+    if(c===45||c===48) return ["🌫️","起霧"]; if(c>=51&&c<=57) return ["🌦️","毛毛雨"]; if(c>=61&&c<=67) return ["🌧️","下雨"];
+    if(c>=71&&c<=77) return ["❄️","下雪"]; if(c>=80&&c<=82) return ["🌦️","陣雨"]; if(c>=95) return ["⛈️","雷雨"];
+    return ["🌡️","天氣不明"];
+  }
+  function dressAdvice(o){
+    var hi = +o.tmax, lo = +o.tmin, tips = [];
+    if(hi>=29) tips.push("短袖加透氣褲裝，帽子墨鏡防曬");
+    else if(hi>=25) tips.push("短袖為主，早晚帶一件薄外套");
+    else if(hi>=21) tips.push("薄長袖，或短袖加薄外套，洋蔥式穿搭");
+    else if(hi>=16) tips.push("長袖加外套，可帶條薄圍巾");
+    else tips.push("厚外套加長袖，注意保暖");
+    if(lo<=17 && hi>=21) tips.push("早晚偏涼，外套別收進行李箱");
+    if(+o.pp>=50) tips.push("降雨機率高，帶雨傘或輕便雨衣，鞋子選好乾的");
+    else if(+o.pp>=30) tips.push("可能下雨，包包放一把折傘");
+    if(+o.uv>=6) tips.push("紫外線強，防曬要補擦");
+    if(+o.wind>=30) tips.push("風偏大，海邊景點帶髮圈和外套");
+    return tips.join("；") + "。";
+  }
+  function wxHtml(d){
+    var pos = WXPOS[d.wx], data = WXD[d.wx];
+    if(!data) return '<div class="l1"><span class="ic">🌤️</span><span>'+(WXFAIL ? '目前無法取得天氣，連上網路後會自動更新。' : '天氣載入中…（需要網路）')+'</span></div>';
+    var day = data.daily && data.daily[d.iso];
+    var src = '<div class="src">資料：Open-Meteo・'+pos[2]+'・更新於 '+hhmm(data.t)+(data.stale ? '（網路不通，顯示上次資料）' : '')+'</div>';
+    if(!day) return '<div class="l1"><span class="ic">📅</span><span>這天的預報還沒開放，約出發前 16 天內會自動顯示。</span></div>'
+      + '<div class="l2">👕 一般 11 月沖繩約 20–26°C，偏溫暖：短袖加一件薄外套最保險，海邊風大、太陽也強。</div>' + src;
+    var wc = wxCode(day.code), h = '';
+    h += '<div class="l1"><span class="ic">'+wc[0]+'</span><span><b>'+wc[1]+'</b>　最高 '+Math.round(day.tmax)+'° ／ 最低 '+Math.round(day.tmin)+'°　降雨機率 '+(day.pp==null ? "—" : Math.round(day.pp)+"%")+'</span></div>';
+    if(d.iso===jstNow().iso && data.current && data.current.temp!=null){
+      var cc = wxCode(data.current.code);
+      h += '<div class="l2">現在 '+cc[0]+' '+Math.round(data.current.temp)+'°C（體感 '+Math.round(data.current.feels)+'°C）</div>';
+    }
+    h += '<div class="l2">👕 穿搭建議：'+dressAdvice(day)+'</div>' + src;
+    return h;
+  }
+  function refreshWx(){ var b = document.getElementById("wxbox"); if(b) b.innerHTML = wxHtml(DAYS[cur]); }
+  function fetchWx(){
+    Object.keys(WXPOS).forEach(function(k){
+      var p = WXPOS[k];
+      var url = "https://api.open-meteo.com/v1/forecast?latitude="+p[0]+"&longitude="+p[1]
+        + "&current=temperature_2m,apparent_temperature,weather_code"
+        + "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max,wind_speed_10m_max"
+        + "&timezone=Asia%2FTokyo&forecast_days=16";
+      fetchJSON(url).then(function(j){
+        if(!j || !j.daily || !j.daily.time) throw new Error("bad data");
+        var daily = {};
+        j.daily.time.forEach(function(t,i){
+          daily[t] = {code:j.daily.weather_code[i], tmax:j.daily.temperature_2m_max[i], tmin:j.daily.temperature_2m_min[i], pp:j.daily.precipitation_probability_max[i], uv:j.daily.uv_index_max[i], wind:j.daily.wind_speed_10m_max[i]};
+        });
+        WXD[k] = {t:Date.now(), daily:daily, current:(j.current ? {temp:j.current.temperature_2m, feels:j.current.apparent_temperature, code:j.current.weather_code} : null), stale:false};
+        wxSave(); refreshWx();
+      }).catch(function(){ if(WXD[k]) WXD[k].stale = true; WXFAIL = true; refreshWx(); });
+    });
+  }
+
+  /* ---------- live exchange rate (TWD -> JPY), cached for offline ---------- */
+  var RKEY = "okinawa-trip-rate-v1", RINFO = null;
+  try{ var rr = localStorage.getItem(RKEY); if(rr){ var rj = JSON.parse(rr); if(rj && +rj.rate>0){ RINFO = {rate:+rj.rate, t:+rj.t||0, live:false}; ST.rate = RINFO.rate; } } }catch(e){}
+  function rateTxt(){ return (Math.round(ST.rate*1000)/1000).toString(); }
+  function updateRateUI(){
+    var v = document.getElementById("rate-v"), n = document.getElementById("rate-note");
+    if(v) v.textContent = rateTxt();
+    if(n){
+      if(RINFO && RINFO.live) n.textContent = "✓ 即時匯率，更新於 "+hhmm(RINFO.t);
+      else if(RINFO) n.textContent = "目前網路不通，使用 "+hhmm(RINFO.t)+" 取得的匯率。";
+      else n.textContent = "尚未取得即時匯率，暫用預設值，連上網路後會自動更新。";
+    }
+  }
+  function fetchRate(){
+    var b = document.getElementById("rate-refresh"); if(b) b.disabled = true;
+    fetchJSON("https://open.er-api.com/v6/latest/TWD").then(function(j){
+      var r = j && j.rates && +j.rates.JPY;
+      if(!(r>0)) throw new Error("bad rate");
+      ST.rate = r; RINFO = {rate:r, t:Date.now(), live:true};
+      try{ localStorage.setItem(RKEY, JSON.stringify({rate:r, t:RINFO.t})); }catch(e){}
+      save(); updateRateUI(); refreshAll();
+    }).catch(function(){ if(RINFO) RINFO.live = false; updateRateUI(); })
+      .then(function(){ if(b) b.disabled = false; });
+  }
+
+  /* ---------- auto category + pie chart ---------- */
+  var CATS = [
+    {k:"food", n:"餐飲", c:"#F2A497"}, {k:"transport", n:"交通", c:"#A8D3E6"}, {k:"ticket", n:"門票・體驗", c:"#F6D27A"},
+    {k:"shop", n:"購物", c:"#B9DAA5"}, {k:"stay", n:"住宿", c:"#D8C9EC"}, {k:"other", n:"其他", c:"#E4DED3"}
+  ];
+  var KW = {
+    transport:["機票","航班","租車","還車","取車","加油","油費","停車","高速","電車","單軌","巴士","公車","接駁","計程車","taxi","uber","送機","接機","機場","駕照","譯本","通行","etc","開車","自駕","出發","車資","交通"],
+    stay:["住宿","飯店","旅館","民宿","hotel","vessel","皇家公園","入住","退房","訂房","airbnb"],
+    ticket:["門票","入場","水族館","導覽","卡丁車","體驗","首里城","玉泉洞","gangala","樂園","美術館","展覽","票券","開蚌","珍珠","kart"],
+    food:["餐","飲","咖啡","cafe","拉麵","麵","壽司","燒肉","串燒","居酒屋","酒","魚市場","鬆餅","甜點","玉子燒","涮涮鍋","爐端燒","蝦","海老","訂位","冰","茶","小酌","便當","飯糰","美食","餅","蛋糕","可麗露","麵包","水果塔"],
+    shop:["伴手禮","購物","買","藥妝","唐吉訶德","donki","免稅","蛙鞋","潛店","衣","紀念","選物","無印","loft","超市","便利商店","超商","parco","逛街","土產","禮物","御守"]
+  };
+  var KWORDER = ["transport","stay","ticket","food","shop"];
+  function classify(text){
+    var s = String(text||"").toLowerCase(), best = null, bn = 0;
+    KWORDER.forEach(function(k){
+      var n = 0; KW[k].forEach(function(w){ if(s.indexOf(w)>=0) n++; });
+      if(n>bn){ bn = n; best = k; }
+    });
+    return best;
+  }
+  function catOfSpot(it){ return classify(it.h+" "+it.s) || classify(it.p) || "other"; }
+  function catOfName(n){ return classify(n) || "other"; }
+  function toJpy(n,c){ return c==="TWD" ? n*ST.rate : n; }
+  function catTotals(w){
+    var sum = {}; CATS.forEach(function(c){ sum[c.k] = 0; });
+    (ST.pre[w]||[]).forEach(function(r){ var n=num(r.a); if(n) sum[catOfName(r.n)] += toJpy(n,r.c); });
+    DAYS.forEach(function(d){
+      d.items.forEach(function(it,i){ var e=ent(d.key+"-"+i,w), n=num(e.a); if(n) sum[catOfSpot(it)] += toJpy(n,e.c); });
+      (ST.x[d.key]||[]).forEach(function(r){ var e=r[w], n=num(e && e.a); if(n) sum[catOfName(r.n)] += toJpy(n,e.c); });
+    });
+    var total = 0; CATS.forEach(function(c){ total += sum[c.k]; });
+    return CATS.map(function(c){ return {k:c.k, n:c.n, c:c.c, jpy:sum[c.k], pct: total ? sum[c.k]/total*100 : 0}; }).filter(function(x){ return x.jpy>0; });
+  }
+  function arcPath(cx,cy,r,a0,a1){
+    var x0=cx+r*Math.cos(a0), y0=cy+r*Math.sin(a0), x1=cx+r*Math.cos(a1), y1=cy+r*Math.sin(a1);
+    return "M"+cx+" "+cy+" L"+x0.toFixed(2)+" "+y0.toFixed(2)+" A"+r+" "+r+" 0 "+((a1-a0)>Math.PI?1:0)+" 1 "+x1.toFixed(2)+" "+y1.toFixed(2)+" Z";
+  }
+  function pieHtml(w){
+    var rows = catTotals(w);
+    var h = '<div class="pie"><div class="pt">🥧 花費分類（依項目名稱自動判斷）</div>';
+    if(!rows.length) return h + '<p class="empty">記下花費後，這裡會出現圓餅圖。</p></div>';
+    var svg = '<svg viewBox="0 0 140 140" role="img" aria-label="花費分類圓餅圖">';
+    if(rows.length===1){
+      svg += '<circle cx="70" cy="70" r="60" fill="'+rows[0].c+'" stroke="#3E3A39" stroke-width="3"/>';
+    }else{
+      var a = -Math.PI/2;
+      rows.forEach(function(r){
+        var a1 = a + r.pct/100*Math.PI*2;
+        svg += '<path d="'+arcPath(70,70,60,a,a1)+'" fill="'+r.c+'" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round"/>';
+        a = a1;
+      });
+    }
+    svg += '</svg>';
+    h += '<div class="prow">'+svg+'<div class="lgd">';
+    rows.forEach(function(r){
+      h += '<div><i class="sw" style="background:'+r.c+'"></i><span>'+r.n+'</span><span class="pct">'+(r.pct>=10 ? Math.round(r.pct) : (Math.round(r.pct*10)/10))+'%　NT$ '+fN(r.jpy/ST.rate)+'</span></div>';
+    });
+    return h + '</div></div></div>';
+  }
+
+  /* ---------- "now" marker + jump ---------- */
+  function updateNowMarks(){
+    var old = document.querySelectorAll("#panel .item.now");
+    for(var i=0;i<old.length;i++){ old[i].classList.remove("now"); var tg = old[i].querySelector ? old[i].querySelector(".nowtag") : null; if(tg && tg.parentNode) tg.parentNode.removeChild(tg); }
+    var info = nowInfo(DAYS[cur]); if(!info) return;
+    var el = document.getElementById("it-"+DAYS[cur].key+"-"+info.i);
+    if(!el) return;
+    el.classList.add("now");
+    var card = el.querySelector ? el.querySelector(".card") : null;
+    if(card){ var s = document.createElement("span"); s.className = "nowtag"; s.textContent = "📍 "+info.label; card.insertBefore(s, card.firstChild); }
+  }
+  function scrollNow(){
+    var info = nowInfo(DAYS[cur]); if(!info) return;
+    var el = document.getElementById("it-"+DAYS[cur].key+"-"+info.i);
+    if(el) el.scrollIntoView({behavior: reduced() ? "auto":"smooth", block:"center"});
+  }
+
   /* rate + reset */
   load();
   ensurePre();
   migrateX();
-  var rateEl = document.getElementById("rate");
-  rateEl.value = ST.rate;
-  rateEl.addEventListener("input", function(){
-    var v = parseFloat(rateEl.value);
-    if(isFinite(v) && v>0){ ST.rate = v; save(); refreshAll(); }
-  });
+  updateRateUI();
+  document.getElementById("rate-refresh").addEventListener("click", fetchRate);
   document.getElementById("reset").addEventListener("click", function(){
     if(confirm("確定要清除彥婷和婕瑜所有的花費紀錄（含行前花費）嗎？")){
       ST.e = {}; ST.x = {}; ST.pre = {y:[], j:[]}; save(); renderPanel(false); moneyBuilt = false; updateSummary();
@@ -1263,16 +1530,19 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   /* initial day */
   var start = 0;
   var m = /^#days-(\d)$/.exec(location.hash);
-  if(m){ start = Math.min(DAYS.length-1, Math.max(0, +m[1]-1)); }
-  else{
-    var diff = Math.floor((Date.now() - new Date("2026-11-07T00:00:00+08:00"))/86400000);
-    if(diff>=0 && diff<DAYS.length) start = diff;
-  }
+  var tIdx = todayIndex();
+  if(tIdx>=0){ start = tIdx; m = null; }
+  else if(m){ start = Math.min(DAYS.length-1, Math.max(0, +m[1]-1)); }
   cur = start;
   renderTabs();
   renderPanel(false);
   updateSummary();
   if(m){ setTimeout(function(){ var el=document.getElementById("days"); if(el) el.scrollIntoView(); },50); }
+  if(tIdx>=0){ setTimeout(scrollNow, 150); }
+  setInterval(updateNowMarks, 60000);
+  fetchWx(); fetchRate();
+  setInterval(fetchWx, 20*60*1000);
+  window.addEventListener("online", function(){ fetchWx(); fetchRate(); });
 
   /* ---------- luggage checklist ---------- */
   var LUG = [
@@ -1285,7 +1555,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     {k:"other", t:"其他", ic:"🧳", items:["香水","耳環","備用隱眼","隱眼藥水","藥品","新露露","夾腳拖","布鞋","換洗衣物","免洗內褲","垃圾袋","浴毛巾","維持器","眼鏡","吹風機","睡衣","髮膠","旅行袋","口罩","卷髮乳","枕頭套"]}
   ];
   var LKEY = "okinawa-trip-luggage-v1", LIKEY = "okinawa-trip-luggage-items-v1";
-  var LS = {}, LI = {}, LCLOSED = {};
+  var LS = {}, LI = {}, LOPEN = {};
   try{ var lr = localStorage.getItem(LKEY); if(lr){ var lo = JSON.parse(lr); if(lo && typeof lo==="object") LS = lo; } }catch(e){}
   try{ var lq = localStorage.getItem(LIKEY); if(lq){ var lj = JSON.parse(lq); if(lj && typeof lj==="object") LI = lj; } }catch(e){}
   function lsave(){ try{ localStorage.setItem(LKEY, JSON.stringify(LS)); localStorage.setItem(LIKEY, JSON.stringify(LI)); }catch(e){} }
@@ -1294,7 +1564,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   function buildLug(focusK){
     var h='';
     LUG.forEach(function(c,ci){
-      h += '<details class="lcat c'+(ci%4)+'"'+(LCLOSED[c.k]?'':' open')+' data-cat="'+c.k+'"><summary><span>'+c.ic+' '+c.t+'</span><em data-lc="'+c.k+'"></em></summary>'+(c.note?'<p class="lnote">'+c.note+'</p>':'')+'<div class="items">';
+      h += '<details class="lcat c'+(ci%4)+'"'+(LOPEN[c.k]?' open':'')+' data-cat="'+c.k+'"><summary><span>'+c.ic+' '+c.t+'</span><em data-lc="'+c.k+'"></em></summary>'+(c.note?'<p class="lnote">'+c.note+'</p>':'')+'<div class="items">';
       litems(c).forEach(function(it,i){
         var id = c.k+"|"+it;
         var st = (c.star && c.star.indexOf(it)>=0);
@@ -1354,7 +1624,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   });
   lugBody.addEventListener("toggle", function(e){
     var t = e.target;
-    if(t && t.classList && t.classList.contains("lcat")) LCLOSED[t.getAttribute("data-cat")] = !t.open;
+    if(t && t.classList && t.classList.contains("lcat")) LOPEN[t.getAttribute("data-cat")] = t.open;
   }, true);
   document.getElementById("lug-reset").addEventListener("click", function(){
     if(confirm("確定要把行李清單全部取消勾選嗎？")){ LS={}; lsave(); buildLug(); }
@@ -1390,6 +1660,22 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     msg.textContent = "11/7 見，沖繩！";
   }
   tick(); setInterval(tick,1000);
+
+  /* ---------- offline (service worker; needs the page served over https) ---------- */
+  var offNote = document.getElementById("offline-note");
+  function offStatus(ready){
+    if(!offNote) return;
+    if(navigator.onLine===false) offNote.textContent = "📴 目前離線，行程與記帳照常可用";
+    else if(ready) offNote.textContent = "✓ 已存到手機，之後沒網路也能開（天氣與匯率會顯示上次更新的資料）";
+  }
+  var swReady = false;
+  if("serviceWorker" in navigator && /^https?:$/.test(location.protocol)){
+    navigator.serviceWorker.register("sw.js").then(function(){ return navigator.serviceWorker.ready; })
+      .then(function(){ swReady = true; offStatus(true); }).catch(function(){});
+  }
+  window.addEventListener("online", function(){ offStatus(swReady); });
+  window.addEventListener("offline", function(){ offStatus(swReady); });
+  offStatus(false);
 })();
 </script>
 </body>
