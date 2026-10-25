@@ -276,10 +276,8 @@ details.pre{margin-bottom:10px}
 .person{scroll-margin-top:calc(var(--nav) + 64px)}
 
 .btn.quick{width:100%;margin-bottom:14px;background:var(--yellow);padding:6px 18px;font-size:16px}
-.fab{position:fixed;right:14px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:45;display:none;align-items:center;gap:5px;cursor:pointer;border:3px solid var(--ink);border-radius:999px;background:var(--yellow);padding:3px 12px 3px 6px;font-size:13px;line-height:1.4;box-shadow:3px 3px 0 var(--ink)}
+.fab{position:fixed;right:14px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:45;display:none;align-items:center;gap:5px;cursor:pointer;border:3px solid var(--ink);border-radius:999px;background:var(--yellow);padding:4px 14px;font-size:13px;line-height:1.4;box-shadow:3px 3px 0 var(--ink)}
 .fab.show{display:flex}
-.fab .coin{width:24px;height:24px;flex:none;animation:coinbob 2.4s ease-in-out infinite}
-@keyframes coinbob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-2px) rotate(6deg)}}
 .fab:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
 .fab:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
 dialog.qa{border:var(--line);border-radius:26px 26px 0 0;background:var(--glass);color:var(--ink);padding:0;width:min(560px,100%);max-width:100%;margin:auto auto 0;box-shadow:0 -4px 0 var(--ink)}
@@ -480,13 +478,13 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
         <div class="t-top"><span class="airline">TIGERAIR TAIWAN・台灣虎航</span><span class="fno">IT233</span></div>
         <div class="t-date"><span>回程</span> 11/11 (三)</div>
         <div class="t-route">
-          <div class="t-end"><b class="code">OKA</b><span class="place">沖繩那霸</span><em class="tm">21:30</em><small>當地時間 出發</small></div>
+          <div class="t-end"><b class="code">TPE</b><span class="place">台灣桃園</span><em class="tm">22:10</em><small>台灣時間 抵達</small></div>
           <div class="t-mid">
-            <svg class="plane-ic" viewBox="0 0 40 40" aria-hidden="true"><g stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M16 17L22 5h6l-4 12z" fill="#A8D3E6"/><path d="M16 23l6 12h6l-4-12z" fill="#A8D3E6"/><path d="M6 17L3 10h5l5 7z" fill="#F2A497"/><path d="M3 20q0-5 7-5h22q6 0 6 5t-6 5H10q-7 0-7-5z" fill="#FFFCF6"/></g><circle cx="31" cy="20" r="2" fill="#3E3A39"/></svg>
+            <svg class="plane-ic" viewBox="0 0 40 40" aria-hidden="true"><g transform="translate(40 0) scale(-1 1)" stroke="#3E3A39" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M16 17L22 5h6l-4 12z" fill="#A8D3E6"/><path d="M16 23l6 12h6l-4-12z" fill="#A8D3E6"/><path d="M6 17L3 10h5l5 7z" fill="#F2A497"/><path d="M3 20q0-5 7-5h22q6 0 6 5t-6 5H10q-7 0-7-5z" fill="#FFFCF6"/></g><circle cx="31" cy="20" r="2" fill="#3E3A39"/></svg>
             <span class="dash"></span>
             <small>飛行約 1 小時 40 分</small>
           </div>
-          <div class="t-end r"><b class="code">TPE</b><span class="place">台灣桃園</span><em class="tm">22:10</em><small>台灣時間 抵達</small></div>
+          <div class="t-end r"><b class="code">OKA</b><span class="place">沖繩那霸</span><em class="tm">21:30</em><small>當地時間 出發</small></div>
         </div>
         <div class="t-foot">18:30 前還車，搭接駁車到機場辦理登機。</div>
       </article>
@@ -562,11 +560,11 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   <p style="opacity:.7;margin-top:2px">行程版本 V33</p>
 </footer>
 
-<button class="fab" id="fab" type="button" aria-label="其他花費"><svg class="coin" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="11" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/><circle cx="14" cy="14" r="7.2" fill="none" stroke="#3E3A39" stroke-width="1.4" stroke-dasharray="2 2.4" opacity=".55"/><circle cx="10.5" cy="12" r="1.3" fill="#3E3A39"/><circle cx="17.5" cy="12" r="1.3" fill="#3E3A39"/><path d="M11 15.5q3 3 6 0" fill="none" stroke="#3E3A39" stroke-width="1.6" stroke-linecap="round"/><circle cx="8.6" cy="15.4" r="1.6" fill="#F2A497"/><circle cx="19.4" cy="15.4" r="1.6" fill="#F2A497"/><path d="M23 3l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="1.2" stroke-linejoin="round"/></svg><span>其他花費</span></button>
+<button class="fab" id="fab" type="button" aria-label="新增其他花費">＋新增其他花費</button>
 <dialog class="qa" id="qa" aria-labelledby="qa-title">
   <div class="qa-in">
     <div class="pr1" style="justify-content:space-between;margin-bottom:8px">
-      <b id="qa-title" style="font-weight:400;font-size:18px">🪙 其他花費</b>
+      <b id="qa-title" style="font-weight:400;font-size:18px">＋新增其他花費</b>
       <button type="button" class="pdel" id="qa-close" aria-label="關閉">✕</button>
     </div>
     <div style="display:grid;gap:8px">
