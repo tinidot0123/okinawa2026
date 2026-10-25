@@ -375,12 +375,12 @@ dialog.qa[open]{animation:sheet .35s cubic-bezier(.3,1.4,.5,1)}
 .scard{display:grid;grid-template-columns:92px 1fr;gap:10px;border:var(--line);border-radius:22px;background:var(--glass);padding:10px;margin-bottom:12px;box-shadow:3px 3px 0 var(--ink)}
 .scard.done{opacity:.72;background:var(--green-l)}
 .sthumb img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border:3px solid var(--ink);border-radius:14px;cursor:zoom-in;background:#fff}
-.sthumb{position:relative}.ocrb{margin-top:6px;border:3px solid var(--ink);border-radius:12px;background:var(--yellow);font-size:11.5px;line-height:1.3;padding:2px 6px;text-align:center}
 .sthumb .noimg{display:grid;place-items:center;aspect-ratio:3/4;border:3px dashed var(--ink);border-radius:14px;font-size:28px}
 .sfields{display:grid;gap:6px;min-width:0}
 .sfields input[type=text],.sfields input[type=number],.sfields select{border:3px solid var(--ink);border-radius:14px;background:var(--glass-in);padding:3px 10px;font-size:15px;min-width:0;width:100%}
 .sprice{display:grid;grid-template-columns:1fr 72px;gap:6px;align-items:center}
 .sprice .ap{grid-column:1/-1;font-size:12px;min-height:1em;margin-top:-2px}
+.sstore{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.sstore input{flex:1 1 150px;min-width:0}.smap{display:inline-block;border:3px solid var(--ink);border-radius:999px;background:#fff;padding:1px 10px;font-size:12.5px;color:var(--ink);text-decoration:none;white-space:nowrap}.stbl .smap{margin-top:3px;font-size:11.5px;padding:0 7px}
 .stwo{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .srow{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .srow .ck{min-height:36px;padding:2px 10px}
@@ -1632,6 +1632,11 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     var n = num(it.a); if(!n) return "";
     return it.c==="TWD" ? "≈ ¥ "+fN(n*ST.rate) : "≈ NT$ "+fN(n/ST.rate);
   }
+  function mapUrl(q){ return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q); }
+  function sMapLink(it){
+    var q = (it.s||"").trim(); if(!q) return "";
+    return '<a class="smap" href="'+mapUrl(q+" 沖繩")+'" target="_blank" rel="noopener" aria-label="在 Google Map 開啟 '+esc(q)+'">📍 Google Map</a>';
+  }
   function sCard(it){
     var img = it.img && SIMG[it.img];
     return '<div class="scard'+(it.done?' done':'')+'" id="sc-'+it.id+'">'
@@ -1643,6 +1648,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       + '<span class="ap" data-ap="'+it.id+'">'+sOther(it)+'</span></div>'
       + '<div class="stwo"><input type="text" placeholder="品牌" aria-label="品牌" data-sid="'+it.id+'" data-f="b" value="'+esc(it.b||"")+'">'
       + '<input type="text" placeholder="購買地（如：唐吉訶德）" aria-label="購買地" data-sid="'+it.id+'" data-f="p" value="'+esc(it.p||"")+'"></div>'
+      + '<div class="sstore"><input type="text" placeholder="店家名稱（如：唐吉訶德 國際通店）" aria-label="店家名稱" data-sid="'+it.id+'" data-f="s" value="'+esc(it.s||"")+'"><span class="smapw" data-smap="'+it.id+'">'+sMapLink(it)+'</span></div>'
       + '<input type="text" placeholder="備註（尺寸、色號…）" aria-label="備註" data-sid="'+it.id+'" data-f="note" value="'+esc(it.note||"")+'">'
       + '<div class="srow"><label class="ck"><input type="checkbox" data-sid="'+it.id+'" data-f="done"'+(it.done?' checked':'')+'><span class="box" aria-hidden="true"></span><span class="tx">已買</span></label>'
       + '<button type="button" class="pdel" data-sact="del" data-sid="'+it.id+'" aria-label="刪除這個項目">✕</button></div>'
@@ -1654,7 +1660,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   }
   function sTable(){
     var items = SHOP.items;
-    var h = '<div class="stbl"><table><thead><tr><th>已買</th><th>項目</th><th class="r">價格</th><th class="r">約合</th><th>品牌</th><th>購買地</th></tr></thead><tbody>';
+    var h = '<div class="stbl"><table><thead><tr><th>已買</th><th>項目</th><th class="r">價格</th><th class="r">約合</th><th>品牌</th><th>購買地</th><th>店家（Google Map）</th></tr></thead><tbody>';
     items.forEach(function(it){
       var img = it.img && SIMG[it.img];
       h += '<tr class="'+(it.done?'done':'')+'" data-sact="goto" data-sid="'+it.id+'" tabindex="0" role="button" aria-label="編輯 '+esc(it.n||"未命名")+'">'
@@ -1662,7 +1668,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
         + '<td>'+(img?'<img class="mini-th" src="'+img+'" alt="">':'')+esc(it.n||"（未命名）")+(it.note?'<small>'+esc(it.note)+'</small>':'')+'</td>'
         + '<td class="r">'+(num(it.a) ? amtTxt(num(it.a),it.c) : '—')+'</td>'
         + '<td class="r">'+(sOther(it).replace("≈ ","") || '—')+'</td>'
-        + '<td>'+(esc(it.b||"")||'—')+'</td><td>'+(esc(it.p||"")||'—')+'</td></tr>';
+        + '<td>'+(esc(it.b||"")||'—')+'</td><td>'+(esc(it.p||"")||'—')+'</td><td>'+(it.s ? esc(it.s)+'<br>'+sMapLink(it) : '—')+'</td></tr>';
     });
     h += '</tbody></table></div><p class="shint">點任一列可回到卡片編輯。</p>';
     var groups = {}, order = [];
@@ -1701,7 +1707,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     text = String(text||"").replace(/\r/g,"").replace(/^﻿/,"").trim(); if(!text) return [];
     var rows = [];
     if(text.charAt(0)==="["){
-      try{ var arr = JSON.parse(text); if(Array.isArray(arr)) return arr.map(function(o){ return {n:o.n||o["項目"]||"", a:o.a||o["價格"]||"", c:cellCur(o.c||o["幣別"]||o["價格"])||"JPY", b:o.b||o["品牌"]||"", p:o.p||o["購買地"]||"", note:o.note||o["備註"]||""}; }); }catch(e){}
+      try{ var arr = JSON.parse(text); if(Array.isArray(arr)) return arr.map(function(o){ return {n:o.n||o["項目"]||"", a:o.a||o["價格"]||"", c:cellCur(o.c||o["幣別"]||o["價格"])||"JPY", b:o.b||o["品牌"]||"", p:o.p||o["購買地"]||"", s:o.s||o["店家名稱"]||o["店家"]||"", note:o.note||o["備註"]||""}; }); }catch(e){}
     }
     var lines = text.split("\n");
     if(/^\s*\|/.test(lines[0])){
@@ -1728,14 +1734,14 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       if(!r.length || !String(r[0]||"").trim()) return;
       var priceCell = String(r[1]||""), m = /[\d][\d,]*(\.\d+)?/.exec(priceCell);
       var cur = cellCur(r[2]) || cellCur(priceCell) || "JPY";
-      out.push({n:String(r[0]).trim(), a:m ? m[0].replace(/,/g,"") : "", c:cur, b:String(r[3]||"").trim(), p:String(r[4]||"").trim(), note:String(r[5]||"").trim()});
+      out.push({n:String(r[0]).trim(), a:m ? m[0].replace(/,/g,"") : "", c:cur, b:String(r[3]||"").trim(), p:String(r[4]||"").trim(), s:r.length>=7 ? String(r[5]||"").trim() : "", note:String(r.length>=7 ? r[6]||"" : r[5]||"").trim()});
     });
     return out;
   }
   function csvCell(v){ v = String(v==null?"":v); return /[",\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; }
   function exportCSV(){
-    var lines = ["項目,價格,幣別,品牌,購買地,備註,已買"];
-    SHOP.items.forEach(function(it){ lines.push([it.n,it.a,it.c==="TWD"?"台幣":"日圓",it.b,it.p,it.note,it.done?"是":""].map(csvCell).join(",")); });
+    var lines = ["項目,價格,幣別,品牌,購買地,店家名稱,備註,已買"];
+    SHOP.items.forEach(function(it){ lines.push([it.n,it.a,it.c==="TWD"?"台幣":"日圓",it.b,it.p,it.s||"",it.note,it.done?"是":""].map(csvCell).join(",")); });
     var blob = new Blob(["﻿"+lines.join("\n")], {type:"text/csv;charset=utf-8"});
     var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "okinawa-shopping.csv";
     document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); if(a.parentNode) a.parentNode.removeChild(a); }, 1500);
@@ -1746,7 +1752,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   function openDlg(d){ if(d.showModal){ if(!d.open) d.showModal(); } else d.setAttribute("open",""); }
   function closeDlg(d){ if(d.close) d.close(); else d.removeAttribute("open"); }
   function addBlank(fields){
-    var it = {id:newSid(), n:"", a:"", c:"JPY", b:"", p:"", note:"", done:false, img:null};
+    var it = {id:newSid(), n:"", a:"", c:"JPY", b:"", p:"", s:"", note:"", done:false, img:null};
     for(var k in fields) it[k] = fields[k];
     SHOP.items.push(it); return it;
   }
@@ -1755,95 +1761,6 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     var el = document.getElementById("sc-"+id);
     if(el){ el.scrollIntoView({behavior: reduced() ? "auto":"smooth", block:"center"}); var f = el.querySelector('input[data-f="n"]'); if(f) f.focus(); }
   }
-  /* ---- OCR: reads text from screenshots in the browser (Tesseract.js, loaded on demand) ---- */
-  var TESS_URL = "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js", tessP = null, ocrQ = Promise.resolve();
-  function loadTess(){
-    if(window.Tesseract) return Promise.resolve(window.Tesseract);
-    if(tessP) return tessP;
-    tessP = new Promise(function(ok, no){
-      var sc = document.createElement("script"); sc.src = TESS_URL;
-      sc.onload = function(){ window.Tesseract ? ok(window.Tesseract) : no(new Error("x")); };
-      sc.onerror = function(){ tessP = null; no(new Error("load")); };
-      document.head.appendChild(sc);
-    });
-    return tessP;
-  }
-  var STORES = [["唐吉訶德",/唐吉[訶诃]德|ドン.?キホーテ|ドンキ|don\s*quijote/i],["藥妝店",/藥妝|薬局|ドラッグ|drug|松本清|matsumoto|sundrug|サンドラッグ|ツルハ|tsuruha/i],["AEON",/aeon|イオン/i],["免稅店",/免稅|免税|duty\s*free|DFS|T\s*galleria/i],["國際通",/國際通|国際通/],["機場",/機場|空港|airport/i],["超市",/超市|スーパー|supermarket|san-?a|サンエー|ユニオン/i],["無印良品",/無印|muji/i],["UNIQLO",/uniqlo|ユニクロ/i]];
-  var BRANDS = ["SK-II","SK2","資生堂","Shiseido","DHC","Fancl","FANCL","ORBIS","KOSE","Kose","雪肌精","Canmake","CANMAKE","Cezanne","MUJI","Uniqlo","UNIQLO","Anessa","ANESSA","Biore","Bioré","Kanebo","Muji","Hada Labo","肌研","Rohto","ロート","Melano","Curél","Curel","Kracie","Lion","花王","Kao","Shu uemura","Sulwhasoo","Nike","Adidas","Sony","Panasonic","Zojirushi","象印","Tiger","Royce","Royce'","Shiroi Koibito","白い恋人","Calbee","Meiji","明治","Pocky","Kit Kat","Kitkat"];
-  function parseShot(text){
-    var out = {n:"", a:"", c:"", b:"", p:""};
-    var t = String(text||"").replace(/[ \t　]+/g," ").replace(/，/g,",");
-    var lines = t.split(/\r?\n/).map(function(x){ return x.trim(); }).filter(Boolean);
-    var m, pr = null;
-    var pats = [
-      [/(?:NT\$?|NTD|TWD|新台幣|台幣)\s*([0-9][0-9,]*(?:\.[0-9]+)?)/i,"TWD"],
-      [/([0-9][0-9,]*(?:\.[0-9]+)?)\s*(?:元|NT\b|TWD)/i,"TWD"],
-      [/[¥￥]\s*([0-9][0-9,]*(?:\.[0-9]+)?)/,"JPY"],
-      [/([0-9][0-9,]*(?:\.[0-9]+)?)\s*(?:円|JPY|yen)/i,"JPY"],
-      [/(?:JPY|yen)\s*([0-9][0-9,]*(?:\.[0-9]+)?)/i,"JPY"],
-      [/\$\s*([0-9][0-9,]*(?:\.[0-9]+)?)/,"TWD"]
-    ];
-    for(var i=0;i<pats.length && !pr;i++){ m = t.match(pats[i][0]); if(m){ var v = parseFloat(m[1].replace(/,/g,"")); if(v>0 && v<10000000) pr = {a:String(v), c:pats[i][1]}; } }
-    if(pr){ out.a = pr.a; out.c = pr.c; }
-    for(i=0;i<STORES.length;i++){ if(STORES[i][1].test(t)){ out.p = STORES[i][0]; break; } }
-    var low = t.toLowerCase();
-    for(i=0;i<BRANDS.length;i++){ if(low.indexOf(BRANDS[i].toLowerCase())>-1){ out.b = BRANDS[i]; break; } }
-    var best = "", bs = 0;
-    lines.forEach(function(L){
-      var clean = L.replace(/[¥￥$]\s*[0-9,\.]+|[0-9,\.]+\s*(?:円|元|JPY|TWD|NT)/gi,"").replace(/[|｜_~=<>\[\]{}•·●○■□]/g," ").replace(/\s+/g," ").trim();
-      var chars = clean.replace(/[\s0-9!-\/:-@\[-`{-~\u3000-\u303f\uff00-\uffef]/g,"");
-      if(chars.length<2 || clean.length>60) return;
-      if(/^\d{1,2}[:：]\d{2}/.test(clean) || /^(?:https?:|www\.)/i.test(clean)) return;
-      var sc = chars.length + (/[一-鿿぀-ヿ]/.test(clean)?3:0) + (/[A-Za-z]{3,}/.test(clean)?2:0);
-      if(out.b && clean.toLowerCase().indexOf(out.b.toLowerCase())>-1) sc += 4;
-      if(sc>bs){ bs = sc; best = clean; }
-    });
-    out.n = best;
-    return out;
-  }
-  function setOcrBadge(id, txt){
-    var el = document.getElementById("sc-"+id); if(!el) return;
-    var b = el.querySelector(".ocrb");
-    if(!txt){ if(b) b.parentNode.removeChild(b); return; }
-    if(!b){ b = document.createElement("div"); b.className = "ocrb"; b.setAttribute("role","status"); var th = el.querySelector(".sthumb"); if(th) th.appendChild(b); }
-    b.textContent = txt;
-  }
-  function applyOcr(id, r){
-    var it = sFind(id); if(!it) return 0;
-    var cnt = 0, el = document.getElementById("sc-"+id);
-    ["n","a","b","p"].forEach(function(k){
-      if(r[k] && !it[k]){ it[k] = r[k]; cnt++; var inp = el && el.querySelector('[data-f="'+k+'"]'); if(inp) inp.value = r[k]; }
-    });
-    if(r.c && r.a && it.c!==r.c){ it.c = r.c; var sel = el && el.querySelector('[data-f="c"]'); if(sel) sel.value = r.c; }
-    var ap = el && el.querySelector('[data-ap="'+id+'"]'); if(ap) ap.textContent = sOther(it);
-    sSave(); shopSummary();
-    return cnt;
-  }
-  function ocrRun(id, dataUrl, Tess){
-    return Tess.recognize(dataUrl, "chi_tra+jpn+eng").then(function(res){
-      var txt = res && res.data ? res.data.text : "";
-      var n = applyOcr(id, parseShot(txt));
-      setOcrBadge(id, n ? "已自動填入，請確認" : "沒讀到文字，請手動填寫");
-      setTimeout(function(){ setOcrBadge(id, ""); }, 6000);
-      return n;
-    });
-  }
-  function ocrBatch(ids){
-    if(!ids.length) return;
-    ids.forEach(function(id){ setOcrBadge(id, "辨識中…"); });
-    toast("正在辨識截圖文字…（第一次需下載辨識套件，請稍候）");
-    loadTess().then(function(Tess){
-      var tot = 0;
-      ids.forEach(function(id){
-        ocrQ = ocrQ.then(function(){ return ocrRun(id, SIMG[(sFind(id)||{}).img], Tess).then(function(n){ tot += n; }).catch(function(){ setOcrBadge(id,"辨識失敗，請手動填寫"); }); });
-      });
-      ocrQ = ocrQ.then(function(){ toast(tot ? "辨識完成，請檢查各欄位是否正確" : "沒辨識到內容，請手動填寫"); });
-    }).catch(function(){
-      ids.forEach(function(id){ setOcrBadge(id, ""); });
-      toast("無法載入辨識功能（需要網路），請手動填寫");
-    });
-  }
-  window.__parseShot = parseShot;
   shopFile.addEventListener("change", function(){
     var files = Array.prototype.slice.call(shopFile.files||[]); if(!files.length) return;
     var made = [], pending = files.length;
@@ -1854,14 +1771,14 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
           shopFile.value = "";
           if(!made.length){ toast("這張圖片讀不出來，請換一張試試"); return; }
           SHOP.view = "cards"; sSave(); shopRender();
-          toast("已加入 "+made.length+" 張截圖");
-          ocrBatch(made.map(function(x){ return x.id; }));
+          toast("已加入 "+made.length+" 張截圖，請補上項目與價格");
           var el = document.getElementById("sc-"+made[0].id); if(el) el.scrollIntoView({behavior: reduced() ? "auto":"smooth", block:"center"});
         }
       });
     });
   });
   shopSec.addEventListener("click", function(e){
+    if(e.target.closest && e.target.closest("a.smap")) return;
     var b = e.target.closest ? e.target.closest("[data-sact],[data-view],#shop-upload,#shop-add,#shop-import,#shop-export") : null;
     if(!b) return;
     var act = b.getAttribute("data-sact"), id = b.getAttribute("data-sid");
@@ -1889,6 +1806,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     var it = sFind(id); if(!it) return;
     if(f==="done"){ it.done = !!t.checked; var card = document.getElementById("sc-"+id); if(card) card.classList.toggle("done", it.done); }
     else it[f] = t.value;
+    if(f==="s"){ var w = document.querySelector('[data-smap="'+id+'"]'); if(w) w.innerHTML = sMapLink(it); }
     sSave(); shopSummary();
   }
   document.getElementById("shop-body").addEventListener("input", onShopEdit);
