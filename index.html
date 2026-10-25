@@ -362,28 +362,6 @@ dialog.qa[open]{animation:sheet .35s cubic-bezier(.3,1.4,.5,1)}
 .pie .pct{margin-left:auto;white-space:nowrap}
 .pie .empty{margin:0}
 
-/* shopping list */
-.shop-bar{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.sc-line{font-size:14px}
-.addin{border:3px solid var(--ink);border-radius:14px;background:var(--paper);padding:3px 10px;font-size:15px;width:100%}
-.add-prev{position:relative;width:120px}
-.add-prev img{display:block;width:100%;border:3px solid var(--ink);border-radius:14px}
-.add-prev .pdel{position:absolute;top:-8px;right:-8px}
-.sgrp{margin:0 0 12px;padding:0 2px}
-.sgrp h4{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:14px;font-weight:400;padding-bottom:3px;border-bottom:2px solid var(--ink);margin-bottom:2px}
-.smap{display:inline-block;border:2px solid var(--ink);border-radius:999px;background:#fff;padding:0 8px;font-size:11px;color:var(--ink);text-decoration:none;white-space:nowrap}
-.sitem{display:flex;align-items:center;gap:8px;padding:5px 0}
-.sitem .sck{flex:none;display:flex;align-items:center;gap:3px;font-size:11px;cursor:pointer;min-width:44px}
-.sitem .sck input{width:16px;height:16px;margin:0;accent-color:var(--coral);cursor:pointer}
-.sitem .st{flex:1;min-width:0;font-size:13.5px;line-height:1.3;overflow-wrap:anywhere}
-.sitem .st small{display:block;font-size:11px;opacity:.7}
-.sitem.done .st{text-decoration:line-through;opacity:.55}
-.sth{flex:none;width:30px;height:38px;padding:0;border:2px solid var(--ink);border-radius:8px;background:#fff;overflow:hidden;cursor:zoom-in}
-.sth img{display:block;width:100%;height:100%;object-fit:cover}
-.sno{flex:none;width:30px;height:38px;display:grid;place-items:center;border:2px dashed var(--ink);border-radius:8px;font-size:13px}
-.sx{flex:none;border:0;background:none;color:var(--ink);font-size:12px;line-height:1;padding:6px;cursor:pointer;opacity:.65}
-.sempty{font-size:14px;background:var(--glass)}
-.sempty p+p{margin-top:4px}
 dialog.qa textarea:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
 
 footer{padding:28px 16px 40px;text-align:center;font-size:13px}
@@ -440,7 +418,6 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     <a class="l" href="#days">行程</a>
     <a class="l" href="#stay">住宿</a>
     <a class="l" href="#luggage">行李</a>
-    <a class="l" href="#shopping">購物清單</a>
     <a class="l" href="#money">開銷</a>
   </div>
 </nav>
@@ -597,16 +574,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   </div>
 </section>
 
-<section id="shopping">
-  <div class="wrap">
-    <h2 class="sec"><span class="dot" style="background:var(--sky)"></span>購物清單</h2>
-    <div class="shop-bar">
-      <button type="button" class="btn" id="shop-new" style="background:var(--yellow)">＋ 新增</button>
-      <span id="shop-count" class="sc-line"></span>
-    </div>
-    <div id="shop-body"></div>
-  </div>
-</section>
+
 
 <section id="money">
   <div class="wrap">
@@ -649,30 +617,8 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     </div>
   </div>
 </dialog>
-<dialog class="qa" id="adddlg" aria-labelledby="add-title">
-  <div class="qa-in">
-    <div class="pr1" style="justify-content:space-between;margin-bottom:8px">
-      <b id="add-title" style="font-weight:400;font-size:18px">＋ 新增想買的東西</b>
-      <button type="button" class="pdel" id="add-close" aria-label="關閉">✕</button>
-    </div>
-    <div style="display:grid;gap:8px">
-      <input type="file" id="add-file" accept="image/*" hidden>
-      <button type="button" class="btn small" id="add-pick" style="justify-self:start">📷 上傳照片</button>
-      <div id="add-prev" class="add-prev" hidden><img id="add-prev-img" alt="已選擇的照片預覽"><button type="button" class="pdel" id="add-prev-x" aria-label="移除照片">✕</button></div>
-      <input type="text" id="add-n" class="addin" placeholder="名稱（如：SK-II 青春露）" aria-label="名稱">
-      <input type="text" id="add-p" class="addin" list="add-places" placeholder="購買地點（如：唐吉訶德 國際通店）" aria-label="購買地點">
-      <datalist id="add-places"></datalist>
-      <input type="text" id="add-note" class="addin" placeholder="備註（尺寸、色號…）" aria-label="備註">
-      <button type="button" class="btn" id="add-send" style="background:var(--yellow);padding:6px 18px;font-size:16px">發送</button>
-    </div>
-  </div>
-</dialog>
-<dialog class="qa" id="imgdlg" aria-label="商品截圖">
-  <div class="qa-in" style="text-align:center">
-    <img id="img-big" alt="商品截圖" style="max-width:100%;max-height:72vh;border:3px solid var(--ink);border-radius:14px">
-    <div style="margin-top:10px"><button type="button" class="btn" id="img-close">關閉</button></div>
-  </div>
-</dialog>
+
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <div id="print-report" aria-hidden="true"></div>
@@ -1264,7 +1210,6 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   });
 
   function refreshAll(){
-    if(typeof shopSummary==="function") shopSummary();
     document.querySelectorAll("[data-sum]").forEach(function(el){ el.textContent = itemSum(el.getAttribute("data-sum")); });
     updateDayTotals();
     updateSummary();
@@ -1575,138 +1520,10 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     if(el) el.scrollIntoView({behavior: reduced() ? "auto":"smooth", block:"center"});
   }
 
-  /* ---------- shopping list (photo + name + place; grouped by place) ---------- */
-  var SKEY = "okinawa-trip-shop-v1", SHOP = {items:[]}, SIMG = {}, sdb = null;
-  try{ var sr = localStorage.getItem(SKEY); if(sr){ var so = JSON.parse(sr); if(so && Array.isArray(so.items)) SHOP.items = so.items.map(function(x){ return {id:x.id, n:x.n||"", p:(x.s||x.p||"").trim(), note:x.note||"", done:!!x.done, img:x.img||null}; }); } }catch(e){}
-  function sSave(){ try{ localStorage.setItem(SKEY, JSON.stringify({items:SHOP.items})); }catch(e){} }
-  function newSid(){ return "s" + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
-  function sdbOpen(done){
-    try{
-      var rq = indexedDB.open("okinawa-trip-shop", 1);
-      rq.onupgradeneeded = function(){ rq.result.createObjectStore("img"); };
-      rq.onsuccess = function(){ sdb = rq.result; done(); };
-      rq.onerror = function(){ done(); };
-      rq.onblocked = function(){ done(); };
-    }catch(e){ done(); }
-  }
-  function sdbLoadAll(done){
-    if(!sdb) return done();
-    try{
-      var rq = sdb.transaction("img","readonly").objectStore("img").openCursor();
-      rq.onsuccess = function(){ var c = rq.result; if(c){ SIMG[c.key] = c.value; c.continue(); } else done(); };
-      rq.onerror = function(){ done(); };
-    }catch(e){ done(); }
-  }
-  function sdbPut(k,v){ if(!sdb) return; try{ sdb.transaction("img","readwrite").objectStore("img").put(v,k); }catch(e){} }
-  function sdbDel(k){ if(!sdb) return; try{ sdb.transaction("img","readwrite").objectStore("img").delete(k); }catch(e){} }
-  function shrink(file, done){
-    var url = URL.createObjectURL(file), im = new Image();
-    im.onload = function(){
-      var w = im.naturalWidth, h = im.naturalHeight, sc = Math.min(1, 1100/Math.max(w,h));
-      var cv = document.createElement("canvas"); cv.width = Math.max(1, Math.round(w*sc)); cv.height = Math.max(1, Math.round(h*sc));
-      cv.getContext("2d").drawImage(im, 0, 0, cv.width, cv.height);
-      URL.revokeObjectURL(url); done(cv.toDataURL("image/jpeg", 0.82));
-    };
-    im.onerror = function(){ URL.revokeObjectURL(url); done(null); };
-    im.src = url;
-  }
-  function sFind(id){ return SHOP.items.filter(function(x){ return x.id===id; })[0]; }
-  function sMapLink(place){
-    return '<a class="smap" href="'+mapUrl(place+" 沖繩")+'" target="_blank" rel="noopener" aria-label="在 Google Map 開啟 '+esc(place)+'">📍 Google Map</a>';
-  }
-  function sRow(it){
-    var img = it.img && SIMG[it.img];
-    return '<div class="sitem'+(it.done?' done':'')+'">'
-      + '<label class="sck"><input type="checkbox" data-sid="'+it.id+'" data-f="done"'+(it.done?' checked':'')+'>已買</label>'
-      + (img ? '<button type="button" class="sth" data-sact="zoom" data-sid="'+it.id+'" aria-label="放大照片"><img src="'+img+'" alt=""></button>' : '<div class="sno" aria-hidden="true">📝</div>')
-      + '<div class="st">'+esc(it.n||"（未命名）")+(it.note?'<small>'+esc(it.note)+'</small>':'')+'</div>'
-      + '<button type="button" class="sx" data-sact="del" data-sid="'+it.id+'" aria-label="刪除 '+esc(it.n||"這個項目")+'">✕</button>'
-      + '</div>';
-  }
-  function shopSummary(){
-    var el = document.getElementById("shop-count"); if(!el) return;
-    var all = SHOP.items, got = all.filter(function(x){ return x.done; }).length;
-    el.textContent = all.length ? "共 "+all.length+" 件・已買 "+got+" 件" : "";
-  }
-  function shopRender(){
-    var body = document.getElementById("shop-body"); if(!body) return;
-    if(!SHOP.items.length){
-      body.innerHTML = '<div class="card sempty"><p>還沒有想買的東西。</p><p>按上方「＋ 新增」，可以上傳照片、填名稱、購買地點和備註。</p></div>';
-    }else{
-      var groups = {}, order = [];
-      SHOP.items.forEach(function(it){
-        var k = (it.p||"").trim().toLowerCase();
-        if(!groups[k]){ groups[k] = {name:(it.p||"").trim(), list:[]}; order.push(k); }
-        groups[k].list.push(it);
-      });
-      order.sort(function(a,b){ return (a==="") - (b===""); });
-      body.innerHTML = order.map(function(k){
-        var g = groups[k];
-        return '<div class="sgrp"><h4><span>'+(g.name ? '📍 '+esc(g.name) : '（未填購買地點）')+'</span>'+(g.name ? sMapLink(g.name) : '')+'</h4>'
-          + g.list.map(sRow).join("")+'</div>';
-      }).join("");
-    }
-    var dl = document.getElementById("add-places");
-    if(dl){ var seen = {}, h = ""; SHOP.items.forEach(function(it){ var p = (it.p||"").trim(); if(p && !seen[p.toLowerCase()]){ seen[p.toLowerCase()] = 1; h += '<option value="'+esc(p)+'">'; } }); dl.innerHTML = h; }
-    shopSummary();
-  }
-  /* ---- add dialog ---- */
-  var shopSec = document.getElementById("shopping");
-  var addDlg = document.getElementById("adddlg"), imgDlg = document.getElementById("imgdlg"), addFile = document.getElementById("add-file"), addImg = null;
-  function openDlg(d){ if(d.showModal){ if(!d.open) d.showModal(); } else d.setAttribute("open",""); }
-  function closeDlg(d){ if(d.close) d.close(); else d.removeAttribute("open"); }
-  function addPrevSet(data){
-    addImg = data || null;
-    document.getElementById("add-prev").hidden = !data;
-    if(data) document.getElementById("add-prev-img").src = data;
-    document.getElementById("add-pick").textContent = data ? "📷 換一張照片" : "📷 上傳照片";
-  }
-  document.getElementById("shop-new").addEventListener("click", function(){
-    ["add-n","add-p","add-note"].forEach(function(i){ document.getElementById(i).value = ""; });
-    addFile.value = ""; addPrevSet(null); openDlg(addDlg);
-  });
-  document.getElementById("add-pick").addEventListener("click", function(){ addFile.click(); });
-  document.getElementById("add-prev-x").addEventListener("click", function(){ addFile.value = ""; addPrevSet(null); });
-  addFile.addEventListener("change", function(){
-    var f = addFile.files && addFile.files[0]; if(!f) return;
-    shrink(f, function(data){ if(data) addPrevSet(data); else toast("這張圖片讀不出來，請換一張試試"); });
-  });
-  document.getElementById("add-close").addEventListener("click", function(){ closeDlg(addDlg); });
-  document.getElementById("add-send").addEventListener("click", function(){
-    var n = document.getElementById("add-n").value.trim(), pl = document.getElementById("add-p").value.trim(), note = document.getElementById("add-note").value.trim();
-    if(!n && !addImg){ toast("請至少填名稱或上傳一張照片"); return; }
-    var it = {id:newSid(), n:n, p:pl, note:note, done:false, img:null};
-    if(addImg){ var iid = newSid(); SIMG[iid] = addImg; sdbPut(iid, addImg); it.img = iid; }
-    SHOP.items.push(it); sSave(); shopRender(); closeDlg(addDlg);
-    toast("已加入購物清單 ✓");
-  });
-  shopSec.addEventListener("click", function(e){
-    if(e.target.closest && e.target.closest("a.smap")) return;
-    var b = e.target.closest ? e.target.closest("[data-sact]") : null; if(!b) return;
-    var act = b.getAttribute("data-sact"), id = b.getAttribute("data-sid"), it = sFind(id); if(!it) return;
-    if(act==="zoom"){ if(SIMG[it.img]){ document.getElementById("img-big").src = SIMG[it.img]; openDlg(imgDlg); } }
-    else if(act==="del"){
-      if(confirm("確定要刪除「"+(it.n||"這個項目")+"」嗎？")){
-        if(it.img){ delete SIMG[it.img]; sdbDel(it.img); }
-        SHOP.items = SHOP.items.filter(function(x){ return x.id!==id; }); sSave(); shopRender();
-      }
-    }
-  });
-  shopSec.addEventListener("change", function(e){
-    var t = e.target; if(!t || !t.getAttribute || t.getAttribute("data-f")!=="done") return;
-    var it = sFind(t.getAttribute("data-sid")); if(!it) return;
-    it.done = !!t.checked; sSave(); shopRender();
-  });
-  document.getElementById("img-close").addEventListener("click", function(){ closeDlg(imgDlg); });
-  [addDlg, imgDlg].forEach(function(d){ d.addEventListener("click", function(e){ if(e.target===d) closeDlg(d); }); });
-  shopRender();
-  sdbOpen(function(){ sdbLoadAll(function(){ shopRender(); }); });
-
   /* rate + reset */
   load();
   ensurePre();
   migrateX();
-  shopRender();
   updateRateUI();
   document.getElementById("rate-refresh").addEventListener("click", fetchRate);
   document.getElementById("reset").addEventListener("click", function(){
