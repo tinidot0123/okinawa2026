@@ -157,7 +157,6 @@ details.mapcard:not([open]) .map-title{border-bottom:0}
 .item.k2::before{background:var(--sky)}
 .item.k3::before{background:var(--green)}
 .item .card{padding:12px 14px 14px;box-shadow:3px 3px 0 var(--ink)}
-.item.must .card{background:var(--yellow-l)}
 .item.flash .card{animation:flash 1s ease-out}
 @keyframes flash{0%{background:var(--coral)}100%{}}
 .item .time{font-size:13px;display:inline-block;background:var(--glass);border:var(--line);border-radius:999px;padding:0 10px}
@@ -639,8 +638,8 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       items:[
         {t:"08:55–10:30", h:"抵達那霸機場 ➔ 辦理租車", p:"虎航 IT230 於 08:55 抵達。搭乘 OTS 免費接駁車前往臨空豐崎營業所，10:30 準時開車出發。", tags:[["shuttle","🚌 接駁車"]], pl:"ots", s:"機場取車", q:"OTSレンタカー 臨空豊崎営業所"},
         {t:"11:00–12:20", h:"泊港魚市場（第一站生鮮早點）", p:"現開生魚片、海膽與現烤大蝦。", tags:[["drive","🚗 自駕約 20 分"]], pl:"tomari", s:"泊港魚市場", q:"泊いゆまち"},
-        {t:"12:30–13:30", h:"Dive Shop mic21（沖繩那霸店）", p:"泊港斜對面，車程 2 分鐘，12:00 營業。停特約停車場（沖繩縣不動產會館停車場）。提領／採購 GULL 白色長蛙鞋，出示護照辦理免稅。戰利品直接放後車廂。", tags:[["drive","🚗 自駕 2 分"],["todo","🛂 帶護照正本"]], pl:"mic21", s:"mic21 潛店", q:"ダイブショップ mic21 那覇店"},
-        {t:"14:00–17:00", h:"港川外人住宅區（逛街＋午餐甜點）", p:"悠閒漫遊 3 小時。可在聚落內的特色餐廳隨興用餐（如 Houki Boshi 可麗露、ippe coppe 麵包、美式復古輕食），再逛洋房、選物小店，最後到 oHacorté 吃精緻水果塔。", tags:[["drive","🚗 自駕約 20 分"]], pl:"minato", s:"港川外人住宅", q:"港川ステイツサイドタウン", more:[["oHacorté","オハコルテ 港川"]]},
+        {t:"12:30–13:30", h:"Dive Shop mic21（沖繩那霸店）", p:"泊港斜對面，車程 2 分鐘，12:00 營業。停特約停車場（沖繩縣不動產會館停車場）。", tags:[["drive","🚗 自駕 2 分"]], pl:"mic21", s:"mic21 潛店", q:"ダイブショップ mic21 那覇店"},
+        {t:"14:00–17:00", h:"港川外人住宅區（逛街＋午餐甜點）", p:"悠閒漫遊 3 小時。可在聚落內的特色餐廳隨興用餐（如 Houki Boshi 可麗露、ippe coppe 麵包、美式復古輕食），再逛洋房、選物小店，最後到 oHacorté 吃精緻水果塔。", tags:[["drive","🚗 自駕約 20 分"]], pl:"minato", s:"港川外人住宅", mn:"港川外人住宅", q:"港川ステイツサイドタウン", more:[["oHacorté","オハコルテ 港川"]]},
         {t:"17:15–17:45", h:"美國村 Vessel Hotel 入住放行李", p:"住客免費停車。辦理入住、放行李、梳洗稍作休息。", tags:[["drive","🚗 自駕"]], pl:"chatan", s:"入住", gs:"美國村", q:"ベッセルホテル カンパーナ 沖縄"},
         {t:"18:00–19:45", h:"Ocean Boo! Chatan（爐端燒＆涮涮鍋）", p:"北谷人氣名店，阿古豬涮涮鍋、炭火爐端燒與海鮮。從飯店步行或開車都很近。", tags:[["walk","🚶 步行／開車皆可"],["ok","✅ 已預約 18:00（2 位）"]], must:true, pl:"chatan", s:"Ocean Boo!", q:"Ocean Boo! 北谷"},
         {t:"20:00–20:15", h:"美國村海上煙火秀", p:"週六限定。吃飽後步行到 Sunset Beach 看煙火，之後在美國村自由散步小酌。", tags:[["walk","🚶 步行"]], must:true, pl:"chatan", s:"煙火", q:"北谷 サンセットビーチ"}
@@ -658,7 +657,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
         {t:"09:30–10:30", h:"Ocean Blue 海景咖啡廳（鯨鯊貼窗第一排）", p:"9:30 準時入座。一邊喝特調、吃輕食，一邊看鯨鯊與魟魚在身邊游過。", tags:[["walk","🚶 館內"]], must:true, pl:"aqua", s:"Ocean Blue", q:"オーシャンブルー 美ら海水族館"},
         {t:"10:30–12:30", h:"美麗海水族館漫步＆ 11:00 戶外海豚秀", p:"參觀館內展區，11:00 到戶外劇場免費看海豚秀。", tags:[["walk","🚶 步行"]], pl:"aqua", s:"海豚秀", q:"沖縄美ら海水族館 オキちゃん劇場"},
         {t:"13:00–14:15", h:"暖暮拉麵（名護店）", p:"從水族館往古宇利島，正好順路經過名護市區。店門口有專用停車場，排隊人潮比國際通少，吃冠軍豚骨拉麵加一口餃子。", tags:[["drive","🚗 自駕・有專屬停車場"]], pl:"nago", s:"暖暮拉麵", q:"暖暮 名護店"},
-        {t:"15:00–19:30", h:"古宇利島＆くるまえび キッチン TAMAYA（晚餐）", p:"① 古宇利大橋＆心形岩（Heart Rock）漫步：看漸層藍海景與夕陽。<br>② くるまえび キッチン TAMAYA：養殖場直營車海老專門店，直上「Mega 哥吉拉巨無霸車海老套餐」，有活蝦刺身、天婦羅與鹽烤大蝦。<br>備選：想吃蝦蝦飯，可以外帶小份到海灘吃。", tags:[["drive","🚗 自駕"]], must:true, pl:"kouri", s:"古宇利島", gq:"古宇利島", q:"くるまえびキッチン TAMAYA", more:[["古宇利大橋","古宇利大橋"],["心形岩","古宇利島 ハートロック"]]},
+        {t:"15:00–19:30", h:"古宇利島＆くるまえび キッチン TAMAYA（晚餐）", p:"① 古宇利大橋＆心形岩（Heart Rock）漫步：看漸層藍海景與夕陽。<br>② くるまえび キッチン TAMAYA：養殖場直營車海老專門店，直上「Mega 哥吉拉巨無霸車海老套餐」，有活蝦刺身、天婦羅與鹽烤大蝦。<br>備選：想吃蝦蝦飯，可以外帶小份到海灘吃。", tags:[["drive","🚗 自駕"]], must:true, pl:"kouri", s:"古宇利島", mn:"TAMAYA 車海老", gq:"古宇利島", q:"くるまえびキッチン TAMAYA", more:[["古宇利大橋","古宇利大橋"],["心形岩","古宇利島 ハートロック"]]},
         {t:"20:30–22:30", h:"北谷民謠 Live 酒場 しまんちゅ", p:"從古宇利島開車回美國村飯店小酌，聽三線琴 Live 表演，全場互動打節拍。", tags:[["drive","🚗 自駕回美國村"],["todo","⚠️ 待預約"]], pl:"chatan", s:"しまんちゅ", gs:"美國村民謠酒場", q:"民謡ライブ酒場 しまんちゅ 北谷"}
       ]
     },
@@ -674,9 +673,9 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
         {t:"11:05–11:55", h:"BANTA CAFE by 星野リゾート", p:"從殘波岬開車只要 5 分鐘。坐在懸崖梯田位子喝清爽特調、看海放空。", tags:[["drive","🚗 自駕 5 分"]], pl:"banta", s:"BANTA CAFE", q:"BANTA CAFE by 星野リゾート"},
         {t:"12:05–12:55", h:"迴轉壽司市場 美濱店", p:"早點開吃避開排隊。必點沖繩鮪魚、炙燒鮭魚、海膽與赤蝦。", tags:[["drive","🚗 開回美國村"]], pl:"chatan", s:"迴轉壽司", gs:"美濱迴轉壽司", q:"回転寿司市場 美浜店"},
         {t:"13:00–13:40", h:"直奔南部 Gangala 之谷", p:"吃飽準時出發，走高速公路到南部。", tags:[["hwy","🛣️ 高速公路"],["drive","🚗 約 40 分"]], pl:"gangala", s:"前往南部", gs:"Gangala 之谷", q:"ガンガラーの谷"},
-        {t:"13:40–16:30", h:"Gangala 之谷＆玉泉洞", p:"要求提早 20 分鐘報到：13:40 前到洞穴咖啡廳櫃檯。由導覽員帶領探索百萬年神聖榕樹與原始林洞穴（約 80 分鐘），之後參觀玉泉洞。", tags:[["ok","✅ 已預約 14:00 場次"]], warn:"13:40 前到洞穴咖啡廳櫃檯報到", must:true, pl:"gangala", s:"Gangala", q:"ガンガラーの谷", more:[["玉泉洞","おきなわワールド 玉泉洞"]]},
+        {t:"13:40–16:30", h:"Gangala 之谷＆玉泉洞", p:"要求提早 20 分鐘報到：13:40 前到洞穴咖啡廳櫃檯。由導覽員帶領探索百萬年神聖榕樹與原始林洞穴（約 80 分鐘），之後參觀玉泉洞。", tags:[["ok","✅ 已預約 14:00 場次"]], warn:"13:40 前到洞穴咖啡廳櫃檯報到", must:true, pl:"gangala", s:"Gangala", mn:"Gangala 之谷", q:"ガンガラーの谷", more:[["玉泉洞","おきなわワールド 玉泉洞"]]},
         {t:"17:15–18:00", h:"那霸皇家公園飯店標誌性 入住", p:"開車前往久茂地，辦理入住。高樓層客房放行李、稍作梳洗。", tags:[["drive","🚗 自駕"]], pl:"naha", s:"入住", gs:"那霸久茂地", q:"ザ ロイヤルパークホテル アイコニック 那覇"},
-        {t:"18:00–20:00", h:"國際通＆浮島通選物漫步", p:"走出飯店直接進國際通與浮島通。趁 19:30–20:00 打烊前逛古著與選物店。20:05 順路回飯店放戰利品。", tags:[["walk","🚶 步行"]], pl:"naha", s:"國際通", q:"浮島通り 那覇", more:[["國際通","国際通り 那覇"]]},
+        {t:"18:00–20:00", h:"國際通＆浮島通選物漫步", p:"走出飯店直接進國際通與浮島通。趁 19:30–20:00 打烊前逛古著與選物店。20:05 順路回飯店放戰利品。", tags:[["walk","🚶 步行"]], pl:"naha", s:"國際通", mn:"浮島通", q:"浮島通り 那覇", more:[["國際通","国際通り 那覇"]]},
         {t:"20:20–22:20", h:"炭火燒肉 ぶち 久茂地本店", p:"預約人：Chen Chieh Yu（2 位）。從飯店步行 2–3 分鐘。黑毛和牛與厚切牛舌，喝完散步回飯店。", tags:[["walk","🚶 步行 2–3 分"],["ok","✅ 已預約 20:20"]], must:true, pl:"naha", s:"燒肉ぶち", q:"炭火焼肉 ぶち 久茂地本店"}
       ]
     },
@@ -703,10 +702,10 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       ill:"shisa",
       items:[
         {t:"09:00–09:45", h:"福助玉子燒（國際通／市場本通店）", p:"飯店退房，行李直接上車。散步或開車到國際通，吃熱騰騰的玉子燒飯糰當早餐。", tags:[["walk","🚶 步行"],["drive","🚗 或自駕"]], pl:"naha", s:"福助玉子燒", q:"福助 国際通り 玉子焼き"},
-        {t:"10:00–11:15", h:"波上宮＆波之上海灘", p:"開車約 8 分鐘。參拜懸崖上的神社，再到那霸唯一的市區白沙灘散步拍照。", tags:[["drive","🚗 自駕約 8 分"]], pl:"naminoue", s:"波上宮", q:"波上宮", more:[["波之上海灘","波の上ビーチ"]]},
+        {t:"10:00–11:15", h:"波上宮＆波之上海灘", p:"開車約 8 分鐘。參拜懸崖上的神社，再到那霸唯一的市區白沙灘散步拍照。", tags:[["drive","🚗 自駕約 8 分"]], pl:"naminoue", s:"波上宮", mn:"波上宮", q:"波上宮", more:[["波之上海灘","波の上ビーチ"]]},
         {t:"11:30–12:15", h:"西來院（達摩寺）", p:"開車約 15 分鐘到首里山腳下。參拜求御守，在朱紅色達摩不倒翁牆拍照。", tags:[["drive","🚗 自駕約 15 分"]], pl:"seirai", s:"達摩寺", q:"西来院 那覇 達磨寺"},
         {t:"12:20–13:15", h:"首里麵（Shuri Soba）", p:"從達摩寺開車僅 3 分鐘。傳統手打沖繩麵配清香柴魚高湯，每天限量，12:20 抵達剛好。", tags:[["drive","🚗 自駕 3 分"]], pl:"shurisoba", s:"首里麵", q:"首里そば"},
-        {t:"13:20–14:40", h:"首里城公園＆琉球金城町石疊道", p:"從首里麵散步或開車 2 分鐘即達（有地下停車場）。逛琉球王國宮殿園區，再走古老石灰岩石疊道。", tags:[["walk","🚶 步行"],["drive","🚗 或自駕 2 分"]], must:true, pl:"castle", s:"首里城", q:"首里城公園", more:[["金城町石疊道","金城町石畳道"]]},
+        {t:"13:20–14:40", h:"首里城公園＆琉球金城町石疊道", p:"從首里麵散步或開車 2 分鐘即達（有地下停車場）。逛琉球王國宮殿園區，再走古老石灰岩石疊道。", tags:[["walk","🚶 步行"],["drive","🚗 或自駕 2 分"]], must:true, pl:"castle", s:"首里城", mn:"首里城公園", q:"首里城公園", more:[["金城町石疊道","金城町石畳道"]]},
         {t:"15:00–17:15", h:"瀨長島 Umikaji Terrace（幸福鬆餅）", p:"開車直達瀨長島。看飛機起降、逛純白階梯商場，吃幸福鬆餅配海景下午茶。", tags:[["drive","🚗 自駕"],["todo","⚠️ 鬆餅待預約"]], must:true, pl:"senaga", s:"瀨長島", q:"瀬長島ウミカジテラス"},
         {t:"17:30–18:30", h:"OTS 臨空豐崎營業所還車", p:"先加滿油再開回營業所（離瀨長島約 10 分鐘）。快速驗車還車，搭 OTS 免費接駁車到機場。", tags:[["drive","🚗 自駕約 10 分"],["shuttle","🚌 接駁車"]], warn:"還車前 10 分鐘加滿油，保留加油收據", pl:"ots", s:"還車", q:"OTSレンタカー 臨空豊崎営業所"},
         {t:"18:45–20:30", h:"那霸機場過海關與辦理登機", p:"辦理登機、逛機場免稅店。虎航 IT233 於 21:30 起飛，台灣時間 22:10 抵達。", tags:[["shuttle","✈️ IT233 21:30 起飛"]], pl:"airport", s:"那霸機場", q:"那覇空港 国際線ターミナル"}
@@ -938,7 +937,6 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     html += '<div class="card wx" id="wxbox">'+wxHtml(d)+'</div>';
     if(nowInfo(d)) html += '<button type="button" class="btn small" style="margin:0 0 12px" data-act="gonow">📍 跳到現在的行程</button>';
     html += buildMap(d);
-    html += '<div class="card lodging"><div class="ic">'+d.lodging.icon+'</div><div><b>'+d.lodging.name+'</b><p>'+d.lodging.note+'</p></div></div>';
     html += '<ol class="tl">';
     d.items.forEach(function(it,i){
       var k = d.key+"-"+i;
@@ -946,11 +944,10 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       if(lg && lg.length){
         html += '<li class="leg" aria-label="交通方式"><span class="legp '+lg[0][0]+'">'+lg.map(function(x){ return '<span>'+x[1]+'</span>'; }).join("")+'</span></li>';
       }
-      html += '<li class="item k'+(i%4)+(it.must?' must':'')+'" id="it-'+k+'"><div class="card">';
-      if(it.must) html += '<span class="badge-must">必去</span>';
-      html += '<div class="mapcol"><a class="mini" target="_blank" rel="noopener noreferrer" href="'+mapUrl(it.q)+'" aria-label="在 Google 地圖開啟 '+esc(it.s)+'">'+PINSVG+'Google Map</a>';
+      html += '<li class="item k'+(i%4)+'" id="it-'+k+'"><div class="card">';
+      html += '<div class="mapcol"><a class="mini" target="_blank" rel="noopener noreferrer" href="'+mapUrl(it.q)+'" aria-label="在 Google 地圖開啟 '+esc(it.mn||it.s)+'">'+PINSVG+(it.more&&it.more.length ? esc(it.mn||it.s)+' Google Map' : 'Google Map')+'</a>';
       (it.more||[]).forEach(function(m){
-        html += '<a class="mini" target="_blank" rel="noopener noreferrer" href="'+mapUrl(m[1])+'">'+PINSVG+m[0]+'地圖</a>';
+        html += '<a class="mini" target="_blank" rel="noopener noreferrer" href="'+mapUrl(m[1])+'" aria-label="在 Google 地圖開啟 '+esc(m[0])+'">'+PINSVG+esc(m[0])+' Google Map</a>';
       });
       html += '</div>';
       html += '<span class="time">'+it.t+'</span><h4>'+it.h+'</h4><p>'+it.p+'</p>';
@@ -1448,7 +1445,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     stay:["住宿","飯店","旅館","民宿","hotel","vessel","皇家公園","入住","退房","訂房","airbnb"],
     ticket:["門票","入場","水族館","導覽","卡丁車","體驗","首里城","玉泉洞","gangala","樂園","美術館","展覽","票券","開蚌","珍珠","kart"],
     food:["餐","飲","咖啡","cafe","拉麵","麵","壽司","燒肉","串燒","居酒屋","酒","魚市場","鬆餅","甜點","玉子燒","涮涮鍋","爐端燒","蝦","海老","訂位","冰","茶","小酌","便當","飯糰","美食","餅","蛋糕","可麗露","麵包","水果塔"],
-    shop:["伴手禮","購物","買","藥妝","唐吉訶德","donki","免稅","蛙鞋","潛店","衣","紀念","選物","無印","loft","超市","便利商店","超商","parco","逛街","土產","禮物","御守"]
+    shop:["伴手禮","購物","買","藥妝","唐吉訶德","donki","免稅","潛店","衣","紀念","選物","無印","loft","超市","便利商店","超商","parco","逛街","土產","禮物","御守"]
   };
   var KWORDER = ["transport","stay","ticket","food","shop"];
   function classify(text){
