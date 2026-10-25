@@ -38,17 +38,18 @@ h2.sec .dot{width:18px;height:18px;border:var(--line);border-radius:50%;backgrou
 .navbrand{display:flex;align-items:center;gap:5px;font-size:12px;white-space:nowrap}
 .navbrand svg{width:16px;height:16px;flex:none}
 .twtime{flex:none;white-space:nowrap;font-size:11px;line-height:1.4;padding:0 8px;border:2px solid var(--ink);border-radius:999px;background:var(--glass-in);letter-spacing:.2px}
-.navlinks{max-width:720px;width:100%;margin:0 auto;flex:1;min-height:0;display:flex;align-items:center;gap:6px;padding:0 12px 5px;overflow-x:auto;scrollbar-width:none}
+.navlinks{max-width:720px;width:100%;margin:0 auto;flex:1;min-height:0;display:flex;align-items:center;gap:4px;padding:0 12px 5px;overflow-x:auto;scrollbar-width:none}
 .navlinks::-webkit-scrollbar{display:none}
-.nav a.l{flex:1 0 auto;text-align:center;white-space:nowrap;text-decoration:none;border:var(--line);border-radius:999px;padding:2px 10px;font-size:14px;line-height:1.5;background:var(--glass)}
+.nav a.l{flex:1 0 auto;text-align:center;white-space:nowrap;text-decoration:none;border:var(--line);border-radius:999px;padding:2px 7px;font-size:13px;line-height:1.5;background:var(--glass)}
 .nav a.l:nth-of-type(1){background:var(--yellow-l)}
 .nav a.l:nth-of-type(2){background:var(--coral-l)}
 .nav a.l:nth-of-type(3){background:var(--sky-l)}
 .nav a.l:nth-of-type(4){background:var(--yellow-l)}
 .nav a.l:nth-of-type(5){background:var(--green-l)}
 .nav a.l:nth-of-type(6){background:var(--coral-l)}
+.nav a.l:nth-of-type(7){background:var(--sky-l)}
 .nav a.l:active{transform:translateY(2px)}
-@media (max-width:380px){.nav a.l{padding:2px 6px;font-size:13px}.navlinks{gap:4px;padding-left:8px;padding-right:8px}.navtop{padding:0 8px}}
+@media (max-width:400px){.nav a.l{padding:2px 4px;font-size:12px}.navlinks{gap:3px;padding-left:8px;padding-right:8px}.navtop{padding:0 8px}}
 
 /* hero */
 .hero{padding-top:18px}
@@ -361,6 +362,45 @@ dialog.qa[open]{animation:sheet .35s cubic-bezier(.3,1.4,.5,1)}
 .pie .pct{margin-left:auto;white-space:nowrap}
 .pie .empty{margin:0}
 
+/* shopping list */
+.shop-sum{background:var(--yellow-l);margin-bottom:14px}
+.sc-line{font-size:15px}
+.sc-total{font-size:13px;line-height:1.6;margin:4px 0 10px}
+.sc-total b{font-weight:400;font-size:15px}
+.shop-actions{display:flex;flex-wrap:wrap;gap:8px}
+.seg{display:flex;gap:0;margin-top:10px;border:3px solid var(--ink);border-radius:999px;overflow:hidden;width:fit-content}
+.seg button{border:0;background:var(--glass-in);padding:1px 20px;font-size:14px;cursor:pointer}
+.seg button+button{border-left:3px solid var(--ink)}
+.seg button[aria-selected="true"]{background:var(--yellow)}
+.scard{display:grid;grid-template-columns:92px 1fr;gap:10px;border:var(--line);border-radius:22px;background:var(--glass);padding:10px;margin-bottom:12px;box-shadow:3px 3px 0 var(--ink)}
+.scard.done{opacity:.72;background:var(--green-l)}
+.sthumb img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border:3px solid var(--ink);border-radius:14px;cursor:zoom-in;background:#fff}
+.sthumb .noimg{display:grid;place-items:center;aspect-ratio:3/4;border:3px dashed var(--ink);border-radius:14px;font-size:28px}
+.sfields{display:grid;gap:6px;min-width:0}
+.sfields input[type=text],.sfields input[type=number],.sfields select{border:3px solid var(--ink);border-radius:14px;background:var(--glass-in);padding:3px 10px;font-size:15px;min-width:0;width:100%}
+.sprice{display:grid;grid-template-columns:1fr 72px;gap:6px;align-items:center}
+.sprice .ap{grid-column:1/-1;font-size:12px;min-height:1em;margin-top:-2px}
+.stwo{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.srow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.srow .ck{min-height:36px;padding:2px 10px}
+.stbl{overflow-x:auto;border:var(--line);border-radius:18px;background:var(--glass)}
+.stbl table{border-collapse:collapse;width:100%;min-width:480px;font-size:13px}
+.stbl th,.stbl td{padding:6px 8px;border-bottom:2px solid var(--ink);text-align:left;font-weight:400;vertical-align:top}
+.stbl th{background:var(--yellow-l);white-space:nowrap}
+.stbl tr:last-child td{border-bottom:0}
+.stbl td.r,.stbl th.r{text-align:right;white-space:nowrap}
+.stbl td.c{text-align:center}
+.stbl tbody tr{cursor:pointer}
+.stbl tr.done td{opacity:.6;text-decoration:line-through}
+.stbl small{display:block;font-size:11px;opacity:.75}
+.mini-th{width:26px;height:34px;object-fit:cover;border:2px solid var(--ink);border-radius:6px;vertical-align:middle;margin-right:6px}
+.shint{font-size:12px;margin:6px 2px 12px}
+.sgroups{background:var(--sky-l)}
+.sgroups h4{font-size:16px;font-weight:400;margin-bottom:4px}
+.sempty{font-size:14px;background:var(--glass)}
+.sempty p+p{margin-top:4px}
+dialog.qa textarea:focus-visible,.seg button:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+
 footer{padding:28px 16px 40px;text-align:center;font-size:13px}
 footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
 
@@ -415,6 +455,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     <a class="l" href="#days">行程</a>
     <a class="l" href="#stay">住宿</a>
     <a class="l" href="#luggage">行李</a>
+    <a class="l" href="#shopping">購物清單</a>
     <a class="l" href="#money">花費</a>
   </div>
 </nav>
@@ -571,6 +612,28 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   </div>
 </section>
 
+<section id="shopping">
+  <div class="wrap">
+    <h2 class="sec"><span class="dot" style="background:var(--sky)"></span>購物清單</h2>
+    <div class="card shop-sum">
+      <div id="shop-count" class="sc-line">共 0 件</div>
+      <div id="shop-total" class="sc-total"></div>
+      <div class="shop-actions">
+        <button type="button" class="btn small" id="shop-upload">📷 上傳截圖</button>
+        <button type="button" class="btn small" id="shop-add">＋ 手動新增</button>
+        <button type="button" class="btn small" id="shop-import">匯入</button>
+        <button type="button" class="btn small" id="shop-export">匯出 CSV</button>
+      </div>
+      <input type="file" id="shop-file" accept="image/*" multiple hidden>
+      <div class="seg" role="tablist" aria-label="顯示方式">
+        <button type="button" role="tab" data-view="cards" aria-selected="true">卡片</button>
+        <button type="button" role="tab" data-view="table" aria-selected="false">表單</button>
+      </div>
+    </div>
+    <div id="shop-body"></div>
+  </div>
+</section>
+
 <section id="money">
   <div class="wrap">
     <h2 class="sec"><span class="dot" style="background:var(--coral)"></span>花費統計</h2>
@@ -610,6 +673,20 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
       <div class="exprow"><span class="who j"><i></i>婕瑜</span><input type="number" inputmode="decimal" min="0" step="any" placeholder="金額" aria-label="婕瑜 金額" id="qa-aj"><select id="qa-cj" aria-label="婕瑜 幣別"><option value="JPY">日圓</option><option value="TWD">台幣</option></select></div>
       <button type="button" class="btn" id="qa-add" style="background:var(--yellow);padding:6px 18px;font-size:16px">新增</button>
     </div>
+  </div>
+</dialog>
+<dialog class="qa" id="impdlg" aria-labelledby="imp-title">
+  <div class="qa-in">
+    <div class="pr1" style="justify-content:space-between;margin-bottom:8px"><b id="imp-title" style="font-weight:400;font-size:18px">匯入購物清單</b></div>
+    <p style="font-size:12.5px;margin-bottom:8px">貼上表格內容，欄位順序：項目、價格、幣別（日圓／台幣）、品牌、購買地、備註。可以貼 CSV、從 Excel／試算表複製的內容，或用 | 分隔的表格。</p>
+    <textarea id="imp-text" rows="8" placeholder="項目,價格,幣別,品牌,購買地,備註&#10;青春露,12800,日圓,SK-II,唐吉訶德," style="width:100%;border:3px solid var(--ink);border-radius:14px;background:var(--glass-in);padding:8px 10px;font:inherit;font-size:14px"></textarea>
+    <div class="pr1" style="gap:10px;margin-top:10px"><button type="button" class="btn" id="imp-go" style="background:var(--yellow)">匯入</button><button type="button" class="btn" id="imp-cancel">取消</button></div>
+  </div>
+</dialog>
+<dialog class="qa" id="imgdlg" aria-label="商品截圖">
+  <div class="qa-in" style="text-align:center">
+    <img id="img-big" alt="商品截圖" style="max-width:100%;max-height:72vh;border:3px solid var(--ink);border-radius:14px">
+    <div style="margin-top:10px"><button type="button" class="btn" id="img-close">關閉</button></div>
   </div>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -1203,6 +1280,7 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
   });
 
   function refreshAll(){
+    if(typeof shopSummary==="function") shopSummary();
     document.querySelectorAll("[data-sum]").forEach(function(el){ el.textContent = itemSum(el.getAttribute("data-sum")); });
     updateDayTotals();
     updateSummary();
@@ -1513,10 +1591,234 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     if(el) el.scrollIntoView({behavior: reduced() ? "auto":"smooth", block:"center"});
   }
 
+  /* ---------- shopping list (screenshots + editable table) ---------- */
+  var SKEY = "okinawa-trip-shop-v1", SHOP = {items:[], view:"cards"}, SIMG = {}, sdb = null;
+  try{ var sr = localStorage.getItem(SKEY); if(sr){ var so = JSON.parse(sr); if(so && Array.isArray(so.items)) SHOP.items = so.items; if(so && so.view==="table") SHOP.view = "table"; } }catch(e){}
+  function sSave(){ try{ localStorage.setItem(SKEY, JSON.stringify(SHOP)); }catch(e){} }
+  function newSid(){ return "s" + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+  function sdbOpen(done){
+    try{
+      var rq = indexedDB.open("okinawa-trip-shop", 1);
+      rq.onupgradeneeded = function(){ rq.result.createObjectStore("img"); };
+      rq.onsuccess = function(){ sdb = rq.result; done(); };
+      rq.onerror = function(){ done(); };
+      rq.onblocked = function(){ done(); };
+    }catch(e){ done(); }
+  }
+  function sdbLoadAll(done){
+    if(!sdb) return done();
+    try{
+      var rq = sdb.transaction("img","readonly").objectStore("img").openCursor();
+      rq.onsuccess = function(){ var c = rq.result; if(c){ SIMG[c.key] = c.value; c.continue(); } else done(); };
+      rq.onerror = function(){ done(); };
+    }catch(e){ done(); }
+  }
+  function sdbPut(k,v){ if(!sdb) return; try{ sdb.transaction("img","readwrite").objectStore("img").put(v,k); }catch(e){} }
+  function sdbDel(k){ if(!sdb) return; try{ sdb.transaction("img","readwrite").objectStore("img").delete(k); }catch(e){} }
+  function shrink(file, done){
+    var url = URL.createObjectURL(file), im = new Image();
+    im.onload = function(){
+      var w = im.naturalWidth, h = im.naturalHeight, sc = Math.min(1, 1100/Math.max(w,h));
+      var cv = document.createElement("canvas"); cv.width = Math.max(1, Math.round(w*sc)); cv.height = Math.max(1, Math.round(h*sc));
+      cv.getContext("2d").drawImage(im, 0, 0, cv.width, cv.height);
+      URL.revokeObjectURL(url); done(cv.toDataURL("image/jpeg", 0.82));
+    };
+    im.onerror = function(){ URL.revokeObjectURL(url); done(null); };
+    im.src = url;
+  }
+  function sFind(id){ return SHOP.items.filter(function(x){ return x.id===id; })[0]; }
+  function sOther(it){
+    var n = num(it.a); if(!n) return "";
+    return it.c==="TWD" ? "≈ ¥ "+fN(n*ST.rate) : "≈ NT$ "+fN(n/ST.rate);
+  }
+  function sCard(it){
+    var img = it.img && SIMG[it.img];
+    return '<div class="scard'+(it.done?' done':'')+'" id="sc-'+it.id+'">'
+      + '<div class="sthumb">'+(img ? '<img src="'+img+'" alt="商品截圖，點一下放大" data-sact="zoom" data-sid="'+it.id+'">' : '<div class="noimg" aria-hidden="true">📝</div>')+'</div>'
+      + '<div class="sfields">'
+      + '<input type="text" placeholder="項目（如：SK-II 青春露）" aria-label="項目" data-sid="'+it.id+'" data-f="n" value="'+esc(it.n||"")+'">'
+      + '<div class="sprice"><input type="number" inputmode="decimal" min="0" step="any" placeholder="價格" aria-label="價格" data-sid="'+it.id+'" data-f="a" value="'+esc(it.a||"")+'">'
+      + '<select aria-label="幣別" data-sid="'+it.id+'" data-f="c"><option value="JPY"'+(it.c==="JPY"?' selected':'')+'>日圓</option><option value="TWD"'+(it.c==="TWD"?' selected':'')+'>台幣</option></select>'
+      + '<span class="ap" data-ap="'+it.id+'">'+sOther(it)+'</span></div>'
+      + '<div class="stwo"><input type="text" placeholder="品牌" aria-label="品牌" data-sid="'+it.id+'" data-f="b" value="'+esc(it.b||"")+'">'
+      + '<input type="text" placeholder="購買地（如：唐吉訶德）" aria-label="購買地" data-sid="'+it.id+'" data-f="p" value="'+esc(it.p||"")+'"></div>'
+      + '<input type="text" placeholder="備註（尺寸、色號…）" aria-label="備註" data-sid="'+it.id+'" data-f="note" value="'+esc(it.note||"")+'">'
+      + '<div class="srow"><label class="ck"><input type="checkbox" data-sid="'+it.id+'" data-f="done"'+(it.done?' checked':'')+'><span class="box" aria-hidden="true"></span><span class="tx">已買</span></label>'
+      + '<button type="button" class="pdel" data-sact="del" data-sid="'+it.id+'" aria-label="刪除這個項目">✕</button></div>'
+      + '</div></div>';
+  }
+  function sTotals(list){
+    var t = 0, j = 0; list.forEach(function(it){ var n = num(it.a); if(it.c==="TWD") t += n; else j += n; });
+    return {t:t, j:j};
+  }
+  function sTable(){
+    var items = SHOP.items;
+    var h = '<div class="stbl"><table><thead><tr><th>已買</th><th>項目</th><th class="r">價格</th><th class="r">約合</th><th>品牌</th><th>購買地</th></tr></thead><tbody>';
+    items.forEach(function(it){
+      var img = it.img && SIMG[it.img];
+      h += '<tr class="'+(it.done?'done':'')+'" data-sact="goto" data-sid="'+it.id+'" tabindex="0" role="button" aria-label="編輯 '+esc(it.n||"未命名")+'">'
+        + '<td class="c">'+(it.done?'✓':'')+'</td>'
+        + '<td>'+(img?'<img class="mini-th" src="'+img+'" alt="">':'')+esc(it.n||"（未命名）")+(it.note?'<small>'+esc(it.note)+'</small>':'')+'</td>'
+        + '<td class="r">'+(num(it.a) ? amtTxt(num(it.a),it.c) : '—')+'</td>'
+        + '<td class="r">'+(sOther(it).replace("≈ ","") || '—')+'</td>'
+        + '<td>'+(esc(it.b||"")||'—')+'</td><td>'+(esc(it.p||"")||'—')+'</td></tr>';
+    });
+    h += '</tbody></table></div><p class="shint">點任一列可回到卡片編輯。</p>';
+    var groups = {}, order = [];
+    items.forEach(function(it){ var k = (it.p||"").trim() || "（未填購買地）"; if(!groups[k]){ groups[k] = []; order.push(k); } groups[k].push(it); });
+    h += '<div class="card sgroups"><h4>📍 依購買地小計</h4>';
+    order.forEach(function(k){
+      var s = sTotals(groups[k]), b = both(s);
+      h += '<div class="drow"><span>'+esc(k)+'（'+groups[k].length+' 件）</span><span class="amt">NT$ <b>'+fN(b.twd)+'</b><br>¥ <b>'+fN(b.jpy)+'</b></span></div>';
+    });
+    return h + '</div>';
+  }
+  function shopRender(){
+    var body = document.getElementById("shop-body"); if(!body) return;
+    if(!SHOP.items.length){
+      body.innerHTML = '<div class="card sempty"><p>還沒有想買的東西。</p><p>按「📷 上傳截圖」選擇商品截圖，每張截圖會變成一個項目，再補上項目、價格、品牌、購買地。</p></div>';
+    }else{
+      body.innerHTML = SHOP.view==="table" ? sTable() : SHOP.items.map(sCard).join("");
+    }
+    shopSummary();
+  }
+  function shopSummary(){
+    var cnt = document.getElementById("shop-count"), tot = document.getElementById("shop-total");
+    if(!cnt || !tot) return;
+    var all = SHOP.items, todo = all.filter(function(x){ return !x.done; });
+    var ba = both(sTotals(all)), bt = both(sTotals(todo));
+    cnt.textContent = "共 "+all.length+" 件・已買 "+(all.length-todo.length)+" 件";
+    tot.innerHTML = '預估總額　NT$ <b>'+fN(ba.twd)+'</b>　／　¥ <b>'+fN(ba.jpy)+'</b><br>還沒買　NT$ <b>'+fN(bt.twd)+'</b>　／　¥ <b>'+fN(bt.jpy)+'</b>';
+    var seg = document.querySelectorAll("#shopping [data-view]");
+    for(var i=0;i<seg.length;i++) seg[i].setAttribute("aria-selected", seg[i].getAttribute("data-view")===SHOP.view ? "true":"false");
+    var aps = document.querySelectorAll("#shop-body [data-ap]");
+    for(var k=0;k<aps.length;k++){ var it = sFind(aps[k].getAttribute("data-ap")); if(it) aps[k].textContent = sOther(it); }
+  }
+  /* ---- import / export ---- */
+  function cellCur(v){ var s = String(v||""); if(/NT|台|TWD/i.test(s)) return "TWD"; if(/¥|￥|円|日|JPY|JP/i.test(s)) return "JPY"; return ""; }
+  function parseTable(text){
+    text = String(text||"").replace(/\r/g,"").replace(/^﻿/,"").trim(); if(!text) return [];
+    var rows = [];
+    if(text.charAt(0)==="["){
+      try{ var arr = JSON.parse(text); if(Array.isArray(arr)) return arr.map(function(o){ return {n:o.n||o["項目"]||"", a:o.a||o["價格"]||"", c:cellCur(o.c||o["幣別"]||o["價格"])||"JPY", b:o.b||o["品牌"]||"", p:o.p||o["購買地"]||"", note:o.note||o["備註"]||""}; }); }catch(e){}
+    }
+    var lines = text.split("\n");
+    if(/^\s*\|/.test(lines[0])){
+      lines.forEach(function(l){
+        if(/^\s*\|?[\s:|-]+\|?\s*$/.test(l)) return;
+        var cells = l.trim().replace(/^\|/,"").replace(/\|$/,"").split("|").map(function(c){ return c.trim(); });
+        rows.push(cells);
+      });
+    }else{
+      var delim = text.indexOf("\t")>=0 ? "\t" : ",", row = [], cell = "", q = false, i, ch;
+      for(i=0;i<text.length;i++){
+        ch = text.charAt(i);
+        if(q){ if(ch==='"'){ if(text.charAt(i+1)==='"'){ cell += '"'; i++; } else q = false; } else cell += ch; }
+        else if(ch==='"') q = true;
+        else if(ch===delim){ row.push(cell); cell = ""; }
+        else if(ch==="\n"){ row.push(cell); rows.push(row); row = []; cell = ""; }
+        else cell += ch;
+      }
+      row.push(cell); rows.push(row);
+    }
+    if(rows.length && /項目|品名|商品/.test(rows[0][0]||"")) rows.shift();
+    var out = [];
+    rows.forEach(function(r){
+      if(!r.length || !String(r[0]||"").trim()) return;
+      var priceCell = String(r[1]||""), m = /[\d][\d,]*(\.\d+)?/.exec(priceCell);
+      var cur = cellCur(r[2]) || cellCur(priceCell) || "JPY";
+      out.push({n:String(r[0]).trim(), a:m ? m[0].replace(/,/g,"") : "", c:cur, b:String(r[3]||"").trim(), p:String(r[4]||"").trim(), note:String(r[5]||"").trim()});
+    });
+    return out;
+  }
+  function csvCell(v){ v = String(v==null?"":v); return /[",\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; }
+  function exportCSV(){
+    var lines = ["項目,價格,幣別,品牌,購買地,備註,已買"];
+    SHOP.items.forEach(function(it){ lines.push([it.n,it.a,it.c==="TWD"?"台幣":"日圓",it.b,it.p,it.note,it.done?"是":""].map(csvCell).join(",")); });
+    var blob = new Blob(["﻿"+lines.join("\n")], {type:"text/csv;charset=utf-8"});
+    var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "okinawa-shopping.csv";
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); if(a.parentNode) a.parentNode.removeChild(a); }, 1500);
+  }
+  /* ---- wiring ---- */
+  var shopSec = document.getElementById("shopping");
+  var impDlg = document.getElementById("impdlg"), imgDlg = document.getElementById("imgdlg"), shopFile = document.getElementById("shop-file");
+  function openDlg(d){ if(d.showModal){ if(!d.open) d.showModal(); } else d.setAttribute("open",""); }
+  function closeDlg(d){ if(d.close) d.close(); else d.removeAttribute("open"); }
+  function addBlank(fields){
+    var it = {id:newSid(), n:"", a:"", c:"JPY", b:"", p:"", note:"", done:false, img:null};
+    for(var k in fields) it[k] = fields[k];
+    SHOP.items.push(it); return it;
+  }
+  function focusCard(id){
+    SHOP.view = "cards"; sSave(); shopRender();
+    var el = document.getElementById("sc-"+id);
+    if(el){ el.scrollIntoView({behavior: reduced() ? "auto":"smooth", block:"center"}); var f = el.querySelector('input[data-f="n"]'); if(f) f.focus(); }
+  }
+  shopFile.addEventListener("change", function(){
+    var files = Array.prototype.slice.call(shopFile.files||[]); if(!files.length) return;
+    var made = [], pending = files.length;
+    files.forEach(function(f){
+      shrink(f, function(data){
+        if(data){ var id = newSid(); SIMG[id] = data; sdbPut(id, data); made.push(addBlank({img:id})); }
+        if(--pending===0){
+          shopFile.value = "";
+          if(!made.length){ toast("這張圖片讀不出來，請換一張試試"); return; }
+          SHOP.view = "cards"; sSave(); shopRender();
+          toast("已加入 "+made.length+" 張截圖，請補上項目與價格");
+          var el = document.getElementById("sc-"+made[0].id); if(el) el.scrollIntoView({behavior: reduced() ? "auto":"smooth", block:"center"});
+        }
+      });
+    });
+  });
+  shopSec.addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest("[data-sact],[data-view],#shop-upload,#shop-add,#shop-import,#shop-export") : null;
+    if(!b) return;
+    var act = b.getAttribute("data-sact"), id = b.getAttribute("data-sid");
+    if(b.id==="shop-upload"){ shopFile.click(); return; }
+    if(b.id==="shop-add"){ var it = addBlank({}); sSave(); focusCard(it.id); return; }
+    if(b.id==="shop-import"){ document.getElementById("imp-text").value = ""; openDlg(impDlg); return; }
+    if(b.id==="shop-export"){ if(!SHOP.items.length){ toast("還沒有資料可以匯出"); return; } exportCSV(); return; }
+    if(b.getAttribute("data-view")){ SHOP.view = b.getAttribute("data-view"); sSave(); shopRender(); return; }
+    if(act==="zoom"){ var it2 = sFind(id); if(it2 && SIMG[it2.img]){ document.getElementById("img-big").src = SIMG[it2.img]; openDlg(imgDlg); } }
+    else if(act==="del"){
+      var it3 = sFind(id); if(!it3) return;
+      if(confirm("確定要刪除「"+(it3.n||"這個項目")+"」嗎？")){
+        if(it3.img){ delete SIMG[it3.img]; sdbDel(it3.img); }
+        SHOP.items = SHOP.items.filter(function(x){ return x.id!==id; }); sSave(); shopRender();
+      }
+    }
+    else if(act==="goto"){ focusCard(id); }
+  });
+  shopSec.addEventListener("keydown", function(e){
+    if((e.key==="Enter" || e.key===" ") && e.target && e.target.getAttribute && e.target.getAttribute("data-sact")==="goto"){ e.preventDefault(); focusCard(e.target.getAttribute("data-sid")); }
+  });
+  function onShopEdit(e){
+    var t = e.target; if(!t || !t.getAttribute) return;
+    var id = t.getAttribute("data-sid"), f = t.getAttribute("data-f"); if(!id || !f) return;
+    var it = sFind(id); if(!it) return;
+    if(f==="done"){ it.done = !!t.checked; var card = document.getElementById("sc-"+id); if(card) card.classList.toggle("done", it.done); }
+    else it[f] = t.value;
+    sSave(); shopSummary();
+  }
+  document.getElementById("shop-body").addEventListener("input", onShopEdit);
+  document.getElementById("shop-body").addEventListener("change", onShopEdit);
+  document.getElementById("imp-go").addEventListener("click", function(){
+    var rows = parseTable(document.getElementById("imp-text").value);
+    if(!rows.length){ toast("沒有讀到資料，請確認格式"); return; }
+    rows.forEach(function(r){ addBlank(r); });
+    sSave(); shopRender(); closeDlg(impDlg); toast("已匯入 "+rows.length+" 筆");
+  });
+  document.getElementById("imp-cancel").addEventListener("click", function(){ closeDlg(impDlg); });
+  document.getElementById("img-close").addEventListener("click", function(){ closeDlg(imgDlg); });
+  [impDlg, imgDlg].forEach(function(d){ d.addEventListener("click", function(e){ if(e.target===d) closeDlg(d); }); });
+  shopRender();
+  sdbOpen(function(){ sdbLoadAll(function(){ shopRender(); }); });
+
   /* rate + reset */
   load();
   ensurePre();
   migrateX();
+  shopRender();
   updateRateUI();
   document.getElementById("rate-refresh").addEventListener("click", fetchRate);
   document.getElementById("reset").addEventListener("click", function(){
