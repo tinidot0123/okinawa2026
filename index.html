@@ -375,6 +375,7 @@ dialog.qa[open]{animation:sheet .35s cubic-bezier(.3,1.4,.5,1)}
 .scard{display:grid;grid-template-columns:92px 1fr;gap:10px;border:var(--line);border-radius:22px;background:var(--glass);padding:10px;margin-bottom:12px;box-shadow:3px 3px 0 var(--ink)}
 .scard.done{opacity:.72;background:var(--green-l)}
 .sthumb img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border:3px solid var(--ink);border-radius:14px;cursor:zoom-in;background:#fff}
+.sthumb{position:relative}.ocrb{margin-top:6px;border:3px solid var(--ink);border-radius:12px;background:var(--yellow);font-size:11.5px;line-height:1.3;padding:2px 6px;text-align:center}
 .sthumb .noimg{display:grid;place-items:center;aspect-ratio:3/4;border:3px dashed var(--ink);border-radius:14px;font-size:28px}
 .sfields{display:grid;gap:6px;min-width:0}
 .sfields input[type=text],.sfields input[type=number],.sfields select{border:3px solid var(--ink);border-radius:14px;background:var(--glass-in);padding:3px 10px;font-size:15px;min-width:0;width:100%}
@@ -1754,6 +1755,95 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
     var el = document.getElementById("sc-"+id);
     if(el){ el.scrollIntoView({behavior: reduced() ? "auto":"smooth", block:"center"}); var f = el.querySelector('input[data-f="n"]'); if(f) f.focus(); }
   }
+  /* ---- OCR: reads text from screenshots in the browser (Tesseract.js, loaded on demand) ---- */
+  var TESS_URL = "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js", tessP = null, ocrQ = Promise.resolve();
+  function loadTess(){
+    if(window.Tesseract) return Promise.resolve(window.Tesseract);
+    if(tessP) return tessP;
+    tessP = new Promise(function(ok, no){
+      var sc = document.createElement("script"); sc.src = TESS_URL;
+      sc.onload = function(){ window.Tesseract ? ok(window.Tesseract) : no(new Error("x")); };
+      sc.onerror = function(){ tessP = null; no(new Error("load")); };
+      document.head.appendChild(sc);
+    });
+    return tessP;
+  }
+  var STORES = [["唐吉訶德",/唐吉[訶诃]德|ドン.?キホーテ|ドンキ|don\s*quijote/i],["藥妝店",/藥妝|薬局|ドラッグ|drug|松本清|matsumoto|sundrug|サンドラッグ|ツルハ|tsuruha/i],["AEON",/aeon|イオン/i],["免稅店",/免稅|免税|duty\s*free|DFS|T\s*galleria/i],["國際通",/國際通|国際通/],["機場",/機場|空港|airport/i],["超市",/超市|スーパー|supermarket|san-?a|サンエー|ユニオン/i],["無印良品",/無印|muji/i],["UNIQLO",/uniqlo|ユニクロ/i]];
+  var BRANDS = ["SK-II","SK2","資生堂","Shiseido","DHC","Fancl","FANCL","ORBIS","KOSE","Kose","雪肌精","Canmake","CANMAKE","Cezanne","MUJI","Uniqlo","UNIQLO","Anessa","ANESSA","Biore","Bioré","Kanebo","Muji","Hada Labo","肌研","Rohto","ロート","Melano","Curél","Curel","Kracie","Lion","花王","Kao","Shu uemura","Sulwhasoo","Nike","Adidas","Sony","Panasonic","Zojirushi","象印","Tiger","Royce","Royce'","Shiroi Koibito","白い恋人","Calbee","Meiji","明治","Pocky","Kit Kat","Kitkat"];
+  function parseShot(text){
+    var out = {n:"", a:"", c:"", b:"", p:""};
+    var t = String(text||"").replace(/[ \t　]+/g," ").replace(/，/g,",");
+    var lines = t.split(/\r?\n/).map(function(x){ return x.trim(); }).filter(Boolean);
+    var m, pr = null;
+    var pats = [
+      [/(?:NT\$?|NTD|TWD|新台幣|台幣)\s*([0-9][0-9,]*(?:\.[0-9]+)?)/i,"TWD"],
+      [/([0-9][0-9,]*(?:\.[0-9]+)?)\s*(?:元|NT\b|TWD)/i,"TWD"],
+      [/[¥￥]\s*([0-9][0-9,]*(?:\.[0-9]+)?)/,"JPY"],
+      [/([0-9][0-9,]*(?:\.[0-9]+)?)\s*(?:円|JPY|yen)/i,"JPY"],
+      [/(?:JPY|yen)\s*([0-9][0-9,]*(?:\.[0-9]+)?)/i,"JPY"],
+      [/\$\s*([0-9][0-9,]*(?:\.[0-9]+)?)/,"TWD"]
+    ];
+    for(var i=0;i<pats.length && !pr;i++){ m = t.match(pats[i][0]); if(m){ var v = parseFloat(m[1].replace(/,/g,"")); if(v>0 && v<10000000) pr = {a:String(v), c:pats[i][1]}; } }
+    if(pr){ out.a = pr.a; out.c = pr.c; }
+    for(i=0;i<STORES.length;i++){ if(STORES[i][1].test(t)){ out.p = STORES[i][0]; break; } }
+    var low = t.toLowerCase();
+    for(i=0;i<BRANDS.length;i++){ if(low.indexOf(BRANDS[i].toLowerCase())>-1){ out.b = BRANDS[i]; break; } }
+    var best = "", bs = 0;
+    lines.forEach(function(L){
+      var clean = L.replace(/[¥￥$]\s*[0-9,\.]+|[0-9,\.]+\s*(?:円|元|JPY|TWD|NT)/gi,"").replace(/[|｜_~=<>\[\]{}•·●○■□]/g," ").replace(/\s+/g," ").trim();
+      var chars = clean.replace(/[\s0-9!-\/:-@\[-`{-~\u3000-\u303f\uff00-\uffef]/g,"");
+      if(chars.length<2 || clean.length>60) return;
+      if(/^\d{1,2}[:：]\d{2}/.test(clean) || /^(?:https?:|www\.)/i.test(clean)) return;
+      var sc = chars.length + (/[一-鿿぀-ヿ]/.test(clean)?3:0) + (/[A-Za-z]{3,}/.test(clean)?2:0);
+      if(out.b && clean.toLowerCase().indexOf(out.b.toLowerCase())>-1) sc += 4;
+      if(sc>bs){ bs = sc; best = clean; }
+    });
+    out.n = best;
+    return out;
+  }
+  function setOcrBadge(id, txt){
+    var el = document.getElementById("sc-"+id); if(!el) return;
+    var b = el.querySelector(".ocrb");
+    if(!txt){ if(b) b.parentNode.removeChild(b); return; }
+    if(!b){ b = document.createElement("div"); b.className = "ocrb"; b.setAttribute("role","status"); var th = el.querySelector(".sthumb"); if(th) th.appendChild(b); }
+    b.textContent = txt;
+  }
+  function applyOcr(id, r){
+    var it = sFind(id); if(!it) return 0;
+    var cnt = 0, el = document.getElementById("sc-"+id);
+    ["n","a","b","p"].forEach(function(k){
+      if(r[k] && !it[k]){ it[k] = r[k]; cnt++; var inp = el && el.querySelector('[data-f="'+k+'"]'); if(inp) inp.value = r[k]; }
+    });
+    if(r.c && r.a && it.c!==r.c){ it.c = r.c; var sel = el && el.querySelector('[data-f="c"]'); if(sel) sel.value = r.c; }
+    var ap = el && el.querySelector('[data-ap="'+id+'"]'); if(ap) ap.textContent = sOther(it);
+    sSave(); shopSummary();
+    return cnt;
+  }
+  function ocrRun(id, dataUrl, Tess){
+    return Tess.recognize(dataUrl, "chi_tra+jpn+eng").then(function(res){
+      var txt = res && res.data ? res.data.text : "";
+      var n = applyOcr(id, parseShot(txt));
+      setOcrBadge(id, n ? "已自動填入，請確認" : "沒讀到文字，請手動填寫");
+      setTimeout(function(){ setOcrBadge(id, ""); }, 6000);
+      return n;
+    });
+  }
+  function ocrBatch(ids){
+    if(!ids.length) return;
+    ids.forEach(function(id){ setOcrBadge(id, "辨識中…"); });
+    toast("正在辨識截圖文字…（第一次需下載辨識套件，請稍候）");
+    loadTess().then(function(Tess){
+      var tot = 0;
+      ids.forEach(function(id){
+        ocrQ = ocrQ.then(function(){ return ocrRun(id, SIMG[(sFind(id)||{}).img], Tess).then(function(n){ tot += n; }).catch(function(){ setOcrBadge(id,"辨識失敗，請手動填寫"); }); });
+      });
+      ocrQ = ocrQ.then(function(){ toast(tot ? "辨識完成，請檢查各欄位是否正確" : "沒辨識到內容，請手動填寫"); });
+    }).catch(function(){
+      ids.forEach(function(id){ setOcrBadge(id, ""); });
+      toast("無法載入辨識功能（需要網路），請手動填寫");
+    });
+  }
+  window.__parseShot = parseShot;
   shopFile.addEventListener("change", function(){
     var files = Array.prototype.slice.call(shopFile.files||[]); if(!files.length) return;
     var made = [], pending = files.length;
@@ -1764,7 +1854,8 @@ footer svg{width:120px;height:auto;display:block;margin:0 auto 6px}
           shopFile.value = "";
           if(!made.length){ toast("這張圖片讀不出來，請換一張試試"); return; }
           SHOP.view = "cards"; sSave(); shopRender();
-          toast("已加入 "+made.length+" 張截圖，請補上項目與價格");
+          toast("已加入 "+made.length+" 張截圖");
+          ocrBatch(made.map(function(x){ return x.id; }));
           var el = document.getElementById("sc-"+made[0].id); if(el) el.scrollIntoView({behavior: reduced() ? "auto":"smooth", block:"center"});
         }
       });
